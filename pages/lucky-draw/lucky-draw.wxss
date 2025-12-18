@@ -1,0 +1,419 @@
+/* pages/lucky-draw/lucky-draw.wxss */
+.container {
+  min-height: 100vh;
+  padding: 20rpx 20rpx 40rpx;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  padding: 16rpx 0 30rpx;
+}
+
+.page-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #4c1d95;
+  letter-spacing: -0.5rpx;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8rpx;
+  left: 10%;
+  width: 80%;
+  height: 3rpx;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+}
+
+/* 积分显示 */
+.points-display {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(145deg, #ffffff 0%, #f9f5ff 100%);
+  margin: 10rpx 30rpx 40rpx;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08);
+}
+
+.points-info,
+.cost-info {
+  text-align: center;
+  flex: 1;
+}
+
+.label {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.value {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #8b5cf6;
+}
+
+.value.cost {
+  color: #ff6b6b;
+}
+
+/* 抽奖转盘容器 */
+.lottery-wheel-container {
+  padding: 0 20rpx 40rpx;
+}
+
+.wheel-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f9f5ff 100%);
+  padding: 60rpx 40rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+              0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  /* 缺角效果 */
+  clip-path: polygon(
+    0 0,
+    calc(100% - 40rpx) 0,
+    100% 40rpx,
+    100% 100%,
+    40rpx 100%,
+    0 calc(100% - 40rpx)
+  );
+}
+
+/* 装饰元素 */
+.wheel-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+.wheel-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(315deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+.decorative-line {
+  position: absolute;
+  width: 60rpx;
+  height: 3rpx;
+  background: #8b5cf6;
+  z-index: 2;
+}
+
+.decorative-line.top {
+  top: 20rpx;
+  left: 20rpx;
+}
+
+.decorative-line.bottom {
+  bottom: 20rpx;
+  right: 20rpx;
+}
+
+/* 转盘包装器 */
+.wheel-wrapper {
+  width: 600rpx;
+  height: 600rpx;
+  position: relative;
+  z-index: 2;
+}
+
+/* 转盘主体 */
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  background: #fff;
+  box-shadow: 0 0 0 16rpx rgba(139, 92, 246, 0.1),
+              0 8rpx 24rpx rgba(0, 0, 0, 0.15);
+  transition: transform 0.1s ease-out;
+}
+
+.wheel.spinning {
+  transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* 奖品扇区 */
+.prize-sector {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+  clip-path: polygon(50% 50%, 50% 0, 100% 0);
+}
+
+.prize-sector:nth-child(odd) {
+  background: linear-gradient(145deg, #f9f5ff, #ffffff);
+}
+
+.prize-sector:nth-child(even) {
+  background: linear-gradient(145deg, #ffffff, #f0ebff);
+}
+
+/* 奖品内容 */
+.prize-content {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%) rotate(-22.5deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120rpx;
+}
+
+.prize-icon {
+  font-size: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.prize-name {
+  font-size: 22rpx;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-all;
+}
+
+/* 中心指针 */
+.center-pointer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.pointer-triangle {
+  width: 0;
+  height: 0;
+  border-left: 20rpx solid transparent;
+  border-right: 20rpx solid transparent;
+  border-bottom: 50rpx solid #ff6b6b;
+  position: absolute;
+  top: -65rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.2));
+}
+
+.pointer-circle {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff8787, #ff6b6b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(255, 107, 107, 0.4);
+  border: 6rpx solid #fff;
+}
+
+.pointer-text {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* 抽奖按钮 */
+.draw-btn {
+  margin: 0 30rpx 40rpx;
+  height: 90rpx;
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 12rpx rgba(139, 92, 246, 0.3);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 20rpx) 0,
+    100% 20rpx,
+    100% 100%,
+    20rpx 100%,
+    0 calc(100% - 20rpx)
+  );
+}
+
+.draw-btn:active {
+  transform: translateY(4rpx);
+  box-shadow: 0 2rpx 6rpx rgba(139, 92, 246, 0.3);
+}
+
+.draw-btn.disabled {
+  background: #e0d6ff;
+  box-shadow: none;
+}
+
+.btn-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.draw-btn.disabled .btn-text {
+  color: #a78bfa;
+}
+
+/* 底部链接 */
+.bottom-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30rpx;
+}
+
+.link-item {
+  padding: 20rpx;
+}
+
+.link-text {
+  font-size: 28rpx;
+  color: #8b5cf6;
+  font-weight: 500;
+}
+
+.link-divider {
+  width: 2rpx;
+  height: 28rpx;
+  background: #d0d0d0;
+}
+
+/* 中奖弹窗 */
+.prize-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.prize-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  width: 100%;
+  padding: 0 60rpx;
+}
+
+.modal-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f9f5ff 100%);
+  padding: 60rpx 40rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 30rpx) 0,
+    100% 30rpx,
+    100% 100%,
+    30rpx 100%,
+    0 calc(100% - 30rpx)
+  );
+}
+
+.modal-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #4c1d95;
+  margin-bottom: 40rpx;
+}
+
+.prize-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.prize-icon-large {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.prize-name-large {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-tip {
+  font-size: 26rpx;
+  color: #7e7e8f;
+  margin-bottom: 40rpx;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 20rpx;
+  width: 100%;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.modal-btn.secondary {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.modal-btn.primary {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(139, 92, 246, 0.3);
+}
+
+.modal-btn:active {
+  transform: scale(0.95);
+}

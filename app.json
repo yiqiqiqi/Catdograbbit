@@ -10,7 +10,10 @@
     "components/photo-card/photo-card",
     "pages/shared-card/shared-card",
     "pages/pet-info-collect/pet-info-collect",
-    "pages/publish-moment/publish-moment"
+    "pages/publish-moment/publish-moment",
+    "pages/redeem-code/redeem-code",
+    "pages/lucky-draw/lucky-draw",
+    "pages/my-prizes/my-prizes"
   ],
   "window": {
     "backgroundTextStyle": "light",

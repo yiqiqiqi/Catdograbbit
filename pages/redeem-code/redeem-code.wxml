@@ -1,0 +1,70 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">兑换码</text>
+  </view>
+
+  <!-- 兑换卡片 -->
+  <view class="redeem-card">
+    <view class="decorative-line top"></view>
+    <view class="decorative-line bottom"></view>
+
+    <!-- 图标 -->
+    <view class="icon-container">
+      <text class="icon-text">🎫</text>
+    </view>
+
+    <!-- 提示文本 -->
+    <view class="tip-text">
+      <text>输入兑换码获取积分</text>
+    </view>
+
+    <!-- 输入框 -->
+    <view class="input-container">
+      <input
+        class="code-input"
+        type="text"
+        placeholder="请输入兑换码"
+        placeholder-class="placeholder"
+        maxlength="20"
+        value="{{redeemCode}}"
+        bindinput="onCodeInput"
+      />
+    </view>
+
+    <!-- 兑换按钮 -->
+    <view
+      class="redeem-btn {{!redeemCode ? 'disabled' : ''}}"
+      bindtap="handleRedeem"
+    >
+      <text class="btn-text">{{isRedeeming ? '兑换中...' : '立即兑换'}}</text>
+    </view>
+
+    <!-- 兑换规则 -->
+    <view class="rules-section">
+      <view class="rules-title">
+        <text>兑换规则</text>
+      </view>
+      <view class="rules-list">
+        <view class="rule-item">
+          <text class="rule-dot">•</text>
+          <text class="rule-text">每个兑换码仅可使用1次</text>
+        </view>
+        <view class="rule-item">
+          <text class="rule-dot">•</text>
+          <text class="rule-text">兑换码有效期为30天</text>
+        </view>
+        <view class="rule-item">
+          <text class="rule-dot">•</text>
+          <text class="rule-text">积分到账后可用于抽奖</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 兑换记录入口 -->
+  <view class="history-link" bindtap="goToHistory">
+    <text class="link-text">查看兑换记录</text>
+    <view class="link-arrow"></view>
+  </view>
+</view>
