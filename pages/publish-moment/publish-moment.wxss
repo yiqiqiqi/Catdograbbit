@@ -1,0 +1,457 @@
+/* pages/publish-moment/index.wxss */
+
+/* 页面容器 */
+.publish-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 顶部导航栏 */
+.publish-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 88rpx;
+  padding: 0 32rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 100;
+}
+
+.header-left,
+.header-right {
+  flex: 1;
+}
+
+.header-left text {
+  font-size: 32rpx;
+  color: #666;
+}
+
+.header-title {
+  flex: 2;
+  text-align: center;
+}
+
+.header-title text {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.publish-btn {
+  width: 100rpx;
+  float: right;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 28rpx;
+  border-radius: 20rpx;
+  background-color: #f0f0f0;
+  color: #999;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.publish-btn.active {
+  background-color: #a559d8;
+  color: #ffffff;
+}
+
+.publish-btn::after {
+  border: none;
+}
+
+/* 主要内容区域 */
+.publish-content {
+  height: calc(100vh - 88rpx);
+}
+
+/* 内容容器 */
+.content-container {
+  padding: 40rpx;
+  background-color: #fff;
+}
+
+/* 文字输入区域 */
+.text-section {
+  margin-bottom: 40rpx;
+}
+
+.description-input {
+  width: 100%;
+  min-height: 240rpx;
+  font-size: 32rpx;
+  line-height: 1.5;
+  padding: 32rpx;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.description-input .placeholder {
+  color: #999;
+  font-size: 32rpx;
+}
+
+.word-count {
+  text-align: right;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 16rpx;
+}
+
+/* 媒体选择区域 */
+.media-section {
+  margin-top: 40rpx;
+}
+
+/* 正方形媒体选择器 */
+.square-media-selector {
+  background-color: #f8f9fa;
+  border-radius: 20rpx;
+  border: 2rpx dashed #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.square-media-selector:active {
+  background-color: #f0f0f0;
+  opacity: 0.8;
+}
+
+.square-add-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20rpx;
+}
+
+.add-icon-large {
+  font-size: 80rpx;
+  color: #ccc;
+  margin-bottom: 20rpx;
+  font-weight: 300;
+}
+
+.add-text-large {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.add-tips {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* 媒体预览区域 */
+.media-preview {
+  margin-top: 20rpx;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20rpx;
+}
+
+.media-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 16rpx;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-video-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #000;
+}
+
+.preview-video {
+  width: 100%;
+  height: 100%;
+}
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40rpx;
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4rpx);
+}
+
+/* 正方形添加按钮（在媒体预览中） */
+.square-add-btn {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  border-radius: 16rpx;
+  border: 2rpx dashed #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.square-add-btn:active {
+  background-color: #f0f0f0;
+  opacity: 0.8;
+}
+
+.add-icon {
+  font-size: 60rpx;
+  color: #ccc;
+  margin-bottom: 12rpx;
+  font-weight: 300;
+}
+
+.add-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 删除按钮样式 */
+.delete-btn {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  width: 44rpx;
+  height: 44rpx;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 36rpx;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:active {
+  transform: scale(0.9);
+}
+
+.delete-btn text {
+  margin-top: -4rpx;
+}
+
+/* 徽章样式 */
+.live-badge {
+  position: absolute;
+  bottom: 12rpx;
+  left: 12rpx;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 6rpx 12rpx;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  color: white;
+  backdrop-filter: blur(4rpx);
+}
+
+.live-text {
+  font-weight: 500;
+}
+
+.video-badge {
+  position: absolute;
+  bottom: 12rpx;
+  left: 12rpx;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 6rpx 12rpx;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  color: white;
+  backdrop-filter: blur(4rpx);
+  display: flex;
+  align-items: center;
+}
+
+.video-text {
+  font-weight: 500;
+}
+
+.video-duration {
+  margin-left: 8rpx;
+  opacity: 0.9;
+}
+
+/* 上传进度遮罩 */
+.upload-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.progress-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 32rpx;
+  padding: 60rpx 80rpx;
+  box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.15);
+}
+
+.progress-circle {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #d9b2f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.progress-text {
+  font-size: 32rpx;
+  color: white;
+  font-weight: 600;
+}
+
+.progress-info {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 750rpx) {
+  .content-container {
+    padding: 32rpx;
+  }
+  
+  .media-grid {
+    grid-gap: 16rpx;
+  }
+  
+  .square-media-selector {
+    width: 280rpx;
+    height: 280rpx;
+  }
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .publish-container {
+    background-color: #1a1a1a;
+  }
+  
+  .publish-header {
+    background-color: #1a1a1a;
+    border-bottom-color: #333;
+  }
+  
+  .header-left text {
+    color: #aaa;
+  }
+  
+  .header-title text {
+    color: #fff;
+  }
+  
+  .publish-btn {
+    background-color: #333;
+    color: #666;
+  }
+  
+  .publish-btn.active {
+    background-color: #c96bff;
+    color: #fff;
+  }
+  
+  .description-input {
+    background-color: #2a2a2a;
+    color: #fff;
+  }
+  
+  .description-input .placeholder {
+    color: #666;
+  }
+  
+  .word-count {
+    color: #666;
+  }
+  
+  .square-media-selector,
+  .square-add-btn {
+    background-color: #2a2a2a;
+    border-color: #444;
+  }
+  
+  .add-icon-large,
+  .add-icon {
+    color: #666;
+  }
+  
+  .add-text-large,
+  .add-text {
+    color: #aaa;
+  }
+  
+  .add-tips {
+    color: #666;
+  }
+  
+  .progress-content {
+    background-color: #2a2a2a;
+  }
+  
+  .progress-info {
+    color: #fff;
+  }
+}

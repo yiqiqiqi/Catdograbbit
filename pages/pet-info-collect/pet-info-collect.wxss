@@ -1,0 +1,390 @@
+/* 步骤内容 */
+.step-content {
+  min-height: 100%;
+}
+
+.step-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  margin-bottom: 80rpx;
+  color: #a885f8;
+  text-align: center;
+}
+
+/* 表单区域 */
+.form-item {
+  padding: 40rpx;
+  border-radius: 24rpx;
+  margin-bottom: 30rpx;
+  transition: all 0.3s;
+}
+
+.form-item:active {
+  transform: translateY(-2rpx);
+  box-shadow: 0 6rpx 25rpx rgba(0, 0, 0, 0.05);
+}
+
+.form-label {
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.required {
+  color: #ff4444;
+  margin-left: 10rpx;
+  font-size: 28rpx;
+}
+
+/* 步骤1：上传头像 */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-container {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 50%;
+  background: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx dashed #e0e0e0;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.avatar-container:active {
+  opacity: 0.8;
+}
+
+.pet-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.avatar-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-icon {
+  width: 80rpx;
+  height: 80rpx;
+  opacity: 0.5;
+  margin-bottom: 20rpx;
+}
+
+.upload-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 姓名输入 */
+.name-input {
+  font-size: 36rpx;
+  color: #333;
+  padding: 30rpx 20rpx;
+  border: 4rpx solid #7c3aed;
+  border-radius: 25rpx;
+  height: 80rpx;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 15rpx rgba(139, 92, 246, 0.3);
+  text-align: center;
+}
+
+.name-input:focus {
+  border-bottom-color: #8b5cf6;
+}
+
+/* 宠物种类选择器 */
+.type-selector {
+  margin: 20rpx;
+}
+
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30rpx;
+}
+
+.type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 20rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  border: 2rpx solid #f0f0f0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.type-card:active {
+  transform: scale(0.98);
+}
+
+.type-card.active {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+  box-shadow: 0 8rpx 25rpx rgba(139, 92, 246, 0.2);
+}
+
+.type-icon {
+  width: 140rpx;
+  height: 140rpx;
+  margin-bottom: 25rpx;
+}
+
+.type-name {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.type-card.active .type-name {
+  color: #8b5cf6;
+}
+/* 第二步：宠物种类和生日 */
+
+/* 种类标签 */
+.type-label {
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+/* 宠物生日 */
+/* 宠物生日 */
+.birthday-item {
+  margin-top: 40rpx;
+}
+
+.birthday-label {
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 25rpx;
+  display: flex;
+  align-items: center;
+}
+
+.optional {
+  font-size: 26rpx;
+  color: #999;
+  margin-left: 10rpx;
+}
+
+.birthday-selector {
+  margin-bottom: 15rpx;
+}
+
+/* 修复生日选择器样式 */
+.birthday-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30rpx;
+  background: #f8f8f8;
+  border-radius: 20rpx;
+  border: 2rpx solid #f0f0f0;
+  height: 100rpx;
+  box-sizing: border-box;
+}
+
+.picker-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.calendar-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0; /* 防止图标被压缩 */
+}
+
+.birthday-text {
+  font-size: 32rpx;
+  color: #ccc;
+  flex: 1;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  min-height: 40rpx; /* 确保有最小高度 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 40rpx;
+}
+
+.birthday-text.selected {
+  color: #333;
+}
+
+.icon-arrow {
+  font-size: 40rpx;
+  color: #999;
+  transform: rotate(90deg);
+  margin-left: 20rpx;
+  flex-shrink: 0; /* 防止箭头被压缩 */
+}
+
+.birthday-tips {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.5;
+  margin-top: 15rpx;
+}
+
+/* 步骤3：性别和绝育 */
+.gender-section {
+  display: flex;
+  gap: 40rpx;
+}
+
+.gender-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50rpx 20rpx;
+  border-radius: 25rpx;
+  background: #f8f8f8;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+}
+
+.gender-option.active {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+  box-shadow: 0 8rpx 20rpx rgba(139, 92, 246, 0.2);
+}
+
+.gender-icon {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 25rpx;
+}
+
+.gender-text {
+  font-size: 34rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.neutered-section {
+  display: flex;
+  gap: 20rpx;
+}
+
+.neutered-option {
+  flex: 1;
+  padding: 35rpx 20rpx;
+  text-align: center;
+  background: #f8f8f8;
+  border-radius: 20rpx;
+  font-size: 34rpx;
+  color: #666;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+}
+
+.neutered-option.active {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #fff;
+  font-weight: 500;
+  box-shadow: 0 4rpx 15rpx rgba(139, 92, 246, 0.3);
+}
+
+/* 底部按钮 - 竖向排列 */
+.action-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 25rpx;
+  z-index: 100;
+}
+
+.action-buttons button {
+  width: 100%;
+  height: 110rpx;
+  line-height: 110rpx;
+  border-radius: 30rpx;
+  font-size: 36rpx;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+}
+
+.action-buttons button::after {
+  border: none;
+}
+
+.btn-hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 10rpx 25rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 跳过按钮样式 */
+.btn-skip {
+  background: transparent;
+  color: #8b5cf6;
+  border: 2rpx solid #8b5cf6 !important;
+  font-weight: 500;
+}
+
+.btn-skip:active {
+  background: rgba(139, 92, 246, 0.1);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 上一步按钮样式 */
+.btn-prev {
+  background: linear-gradient(135deg, #f8f8f8, #e8e8e8);
+  color: #666;
+  font-weight: 500;
+}
+
+.btn-prev:active {
+  background: linear-gradient(135deg, #e8e8e8, #d8d8d8);
+}
+
+/* 下一步/完成按钮样式 */
+.btn-next {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #fff;
+  font-weight: 500;
+  box-shadow: 0 6rpx 25rpx rgba(139, 92, 246, 0.4);
+}
+
+.btn-next:active:not(.disabled) {
+  transform: translateY(2rpx);
+  box-shadow: 0 3rpx 15rpx rgba(139, 92, 246, 0.3);
+}
+
+.btn-next.disabled {
+  background: linear-gradient(135deg, #cccccc, #aaaaaa);
+  color: #fff;
+  box-shadow: none;
+  opacity: 0.6;
+}

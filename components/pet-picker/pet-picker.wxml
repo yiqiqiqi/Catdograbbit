@@ -1,0 +1,95 @@
+<!-- components/pet-selector/pet-selector.wxml -->
+<view class="pet-selector-section">
+  <!-- 整合后的我的宠物模块 -->
+  <view class="my-pets-card">
+    <view class="card-header">
+      <text class="card-title">我的宠物</text>
+      <view class="management-btn" bindtap="openManagementModal">
+        <text>管理</text>
+      </view>
+    </view>
+    <!-- 宠物选择区域 -->
+    <view class="inline-pet-selector">      
+      <view class="horizontal-scroll-container">
+        <scroll-view class="pet-cards-scroll" scroll-x="true">
+          <view class="pet-cards-wrapper">
+            <view 
+              wx:for="{{petList}}" 
+              wx:key="id"
+              class="pet-card {{(item.id === selectedPet.id || item.petId === selectedPet.petId) ? 'pet-card-active' : ''}}"
+              bindtap="changePet"
+              data-petid="{{item.petId || item.id}}"
+            >
+              <view class="pet-card-content">
+                <image 
+                  src="{{item.avatarUrl || '/images/default-avatar.png'}}" 
+                  class="pet-card-avatar {{(item.id === selectedPet.id || item.petId === selectedPet.petId) ? 'avatar-active' : ''}}" 
+                  mode="aspectFill"
+                ></image>
+                <text class="pet-card-name">{{item.displayName || item.name}}</text>
+              </view>
+            </view>
+            
+            <!-- 添加新宠物卡片 -->
+          <view class="add-pet-card" bindtap="gotoAddPet">
+            <view class="add-pet-content">
+              <view class="add-icon-container">
+                <image src="/images/add.png" class="add-icon" mode="aspectFill"></image>
+              </view>
+              <text class="add-text">添加</text>
+            </view>
+          </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 宠物管理弹窗 -->
+  <view class="modal-mask" wx:if="{{isManagementModalShow}}" bindtap="closeManagementModal"></view>
+  <view class="management-modal" wx:if="{{isManagementModalShow}}">
+    <view class="modal-header">
+      <text class="modal-title">管理宠物</text>
+      <image src="/images/icon/close.png" class="close-icon" mode="aspectFill" bindtap="closeManagementModal"></image>
+    </view>
+    <view class="management-list">
+   <!-- 在管理列表项中添加选中标识 -->
+      <view 
+        wx:for="{{petList}}" 
+        wx:key="id"
+        class="management-item {{(item.id === selectedPet.id || item.petId === selectedPet.petId) ? 'selected-pet-item' : ''}}"
+      >
+        <view class="pet-info-section">
+          <image 
+            src="{{item.avatarUrl || '/images/default-avatar.png'}}" 
+            class="management-pet-avatar" 
+            mode="aspectFill"
+          ></image>
+          <view class="management-pet-info">
+            <view style="display: flex; align-items: center;">
+              <text class="management-pet-name">{{item.name}}</text>
+              <text class="selected-pet-indicator" wx:if="{{item.id === selectedPet.id || item.petId === selectedPet.petId}}">(当前)</text>
+            </view>
+            <text class="management-pet-breed">{{item.breed || '未知品种'}}</text>
+          </view>
+        </view>
+        
+        <view class="management-actions">
+          <button 
+            class="edit-btn" 
+            catchtap="editPet"
+            data-pet="{{item}}"
+          >编辑</button>
+          <button 
+            class="delete-btn" 
+            catchtap="deletePet"
+            data-pet="{{item}}"
+          >删除</button>
+        </view>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <button class="add-pet-btn" bindtap="gotoAddPet">添加新宠物</button>
+    </view>
+  </view>
+</view>

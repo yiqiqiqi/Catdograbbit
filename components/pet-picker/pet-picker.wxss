@@ -1,0 +1,367 @@
+/* components/pet-selector/pet-selector.wxss */
+.pet-selector-section {
+  
+}
+.my-pets-card {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+              0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+              
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.management-btn {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  color: #9370DB;
+  padding: 12rpx 20rpx;
+}
+/* 修改宠物卡片头像样式 */
+.pet-card-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  margin-bottom: 6rpx;
+  border: 3rpx solid transparent;
+  transition: all 0.3s ease;
+  /* 添加以下属性确保图片占满圆形 */
+  overflow: hidden; /* 裁剪超出圆形的部分 */
+}
+
+/* 修改管理列表中的宠物头像样式 */
+.management-pet-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  margin-right: 20rpx;
+  /* 添加以下属性确保图片占满圆形 */
+  overflow: hidden; /* 裁剪超出圆形的部分 */
+}
+
+/* 当前选中宠物头像样式也需要修改 */
+.current-pet-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  /* 添加以下属性确保图片占满圆形 */
+  overflow: hidden; /* 裁剪超出圆形的部分 */
+}
+.management-btn .arrow-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 8rpx;
+}
+
+/* 当前选中宠物信息 */
+.current-pet-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background: #f9f9f9;
+  border-radius: 12rpx;
+}
+
+
+.current-pet-details {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.current-pet-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.current-pet-breed {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 内嵌宠物选择器 */
+.inline-pet-selector {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 0;
+}
+
+.selector-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+/* 横向滚动容器 */
+.horizontal-scroll-container {
+  padding: 0;
+}
+
+.pet-cards-scroll {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.pet-cards-wrapper {
+  display: inline-flex;
+  gap: 20rpx;
+  padding: 10rpx 0;
+}
+
+/* 宠物卡片（横向滚动版本） */
+.pet-card {
+  width: 120rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.pet-card-content {
+  position: relative;
+  text-align: center;
+  white-space: normal;
+}
+
+
+
+/* 选中状态的宠物头像 - 紫色边框 */
+.avatar-active {
+  border-color: #8A2BE2; /* 紫色边框 */
+  box-shadow: 0 0 10rpx rgba(138, 43, 226, 0.3); /* 紫色阴影 */
+}
+
+.pet-card-name {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 添加宠物卡片（横向滚动版本） - 修改为圆形加号样式 */
+.add-pet-card {
+  width: 120rpx;
+  background: transparent;
+  border: none;
+  border-radius: 16rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.add-pet-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-icon-container {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #f8f8f8;
+  border: 2rpx dashed #9370DB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8rpx;
+}
+
+.add-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.add-text {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 弹窗样式 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.management-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 32rpx 32rpx 0 0;
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom);
+  max-height: 70vh;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40rpx 32rpx 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.modal-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #9370DB; /* 改为紫色 */
+}
+
+.close-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+/* 管理列表样式 - 改为紫色系 */
+.management-list {
+  padding: 0 32rpx;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.management-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.management-item:last-child {
+  border-bottom: none;
+}
+
+.pet-info-section {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.management-pet-info {
+  flex: 1;
+}
+
+.management-pet-name {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.management-pet-breed {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.management-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.edit-btn, .delete-btn {
+  padding: 12rpx 24rpx;
+  font-size: 24rpx;
+  border-radius: 20rpx;
+  border: none;
+  background: transparent;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.edit-btn {
+  color: #9370DB; /* 改为紫色 */
+  border: 1rpx solid #9370DB; /* 改为紫色 */
+}
+
+.edit-btn:active {
+  background: #f8f4ff; /* 浅紫色背景 */
+}
+
+.delete-btn {
+  color: #ff4757;
+  border: 1rpx solid #ff4757;
+}
+
+.delete-btn:active {
+  background: #fff5f5; /* 浅红色背景 */
+}
+
+.edit-btn::after, .delete-btn::after {
+  border: none;
+}
+
+/* 底部按钮 - 改为紫色系 */
+.modal-footer {
+  padding: 24rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.add-pet-btn {
+  width: 100%;
+  background: #9370DB; /* 改为紫色 */
+  color: #fff;
+  border: none;
+  border-radius: 12rpx;
+  padding: 12rpx;
+  font-size: 30rpx;
+  transition: all 0.3s ease;
+}
+
+.add-pet-btn:active {
+  background: #7a1bd1; /* 深一点的紫色 */
+}
+
+.add-pet-btn::after {
+  border: none;
+}
+
+/* 选中的宠物项样式 */
+.selected-pet-item {
+  background: #f8f4ff; /* 浅紫色背景 */
+  border-radius: 12rpx;
+  margin: 0 -32rpx;
+  padding: 30rpx 32rpx;
+}
+
+.selected-pet-indicator {
+  color: #9370DB;
+  font-size: 24rpx;
+  margin-left: 10rpx;
+}

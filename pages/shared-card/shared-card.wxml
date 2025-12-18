@@ -1,0 +1,118 @@
+<!-- 分享视图 - 只显示被分享的卡片 -->
+<view class="shared-view">
+  <!-- 分享视图头部 -->
+  <view class="shared-view-header">
+    <view class="header-content">
+      <image 
+        class="pet-avatar" 
+        src="{{sharedCardData.petAvatar || '/imageList/default-pet-avatar.jpg'}}" 
+        mode="aspectFill"
+      ></image>
+      <view class="pet-info">
+        <text class="pet-name">{{sharedCardData.petName}}</text>
+        <text class="create-time">{{sharedCardData.createdAt}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 分享卡片内容 -->
+  <view wx:if="{{sharedCardData}}" class="shared-view-content">
+    <view class="description" wx:if="{{sharedCardData.description}}">{{sharedCardData.description}}</view>
+    
+    <!-- 媒体展示区域 -->
+    <view 
+    class="media-container {{sharedCardData.imageList && sharedCardData.imageList.length === 1 ? 'single-media' : 'multiple-media'}}"
+    wx:if="{{sharedCardData.imageList && sharedCardData.imageList.length}}"
+  >
+    <!-- 单张图片/视频 -->
+    <block wx:if="{{sharedCardData.imageList.length === 1}}">
+      <view 
+        class="media-item single-item"
+        bindtap="{{sharedCardData.imageList[0].mediaType === 'image' ? 'onPreviewImage' : 'onPlayVideo'}}"
+        data-index="0"
+        data-video-url="{{sharedCardData.imageList[0].mediaType === 'video' ? sharedCardData.imageList[0].imageUrl : ''}}"
+      >
+        <!-- 单张图片 -->
+        <image 
+          wx:if="{{sharedCardData.imageList[0].mediaType === 'image'}}"
+          class="media-content single-image"
+          src="{{sharedCardData.imageList[0].imageUrl}}"
+          mode="aspectFit"
+          lazy-load="true"
+        ></image>
+        
+        <!-- 单张视频 -->
+        <video 
+          wx:elif="{{sharedCardData.imageList[0].mediaType === 'video'}}"
+          class="media-content single-video"
+          src="{{sharedCardData.imageList[0].imageUrl}}"
+          controls
+          poster="{{sharedCardData.imageList[0].coverUrl || '/imageList/default-video-cover.jpg'}}"
+          enable-play-gesture
+          object-fit="contain"
+        ></video>
+        
+        <!-- 视频时长标签 -->
+        <view class="video-duration" wx:if="{{sharedCardData.imageList[0].duration}}">
+          {{formatDuration(sharedCardData.imageList[0].duration)}}
+        </view>
+      </view>
+    </block>
+    
+    <!-- 多张图片/视频网格布局 -->
+    <view 
+      class="media-grid" data-count="{{sharedCardData.imageList.length}}"
+      wx:elif="{{sharedCardData.imageList.length > 1}}"
+    >
+      <block wx:for="{{sharedCardData.imageList}}" wx:key="id" wx:for-index="index">
+        <view 
+          class="media-item grid-item"
+          bindtap="{{item.mediaType === 'image' ? 'onPreviewImage' : 'onPlayVideo'}}"
+          data-index="{{index}}"
+          data-video-url="{{item.mediaType === 'video' ? item.imageUrl : ''}}"
+        >
+          <!-- 图片 -->
+          <image 
+            wx:if="{{item.mediaType === 'image'}}"
+            class="media-content grid-image"
+            src="{{item.imageUrl}}"
+            mode="aspectFill"
+            lazy-load="true"
+          ></image>
+          
+          <!-- 视频 -->
+          <video 
+            wx:elif="{{item.mediaType === 'video'}}"
+            class="media-content grid-video"
+            src="{{item.imageUrl}}"
+            controls
+            poster="{{item.coverUrl || '/imageList/default-video-cover.jpg'}}"
+            enable-play-gesture
+            object-fit="cover"
+          ></video>
+          
+          <!-- 视频时长标签 -->
+          <view class="video-duration" wx:if="{{item.duration}}">
+            {{formatDuration(item.duration)}}
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  </view>
+  
+  <!-- 加载状态 -->
+  <view wx:elif="{{shareCardLoading}}" class="loading-state">
+    <view class="loading-content">
+      <text class="loading-text">加载中...</text>
+    </view>
+  </view>
+  
+  <!-- 错误状态 -->
+  <view wx:elif="{{hasError}}" class="error-state">
+    <view class="error-content">
+      <text class="error-text">{{errorMessage}}</text>
+      <button class="retry-btn" bindtap="onRetryLoad">重新加载</button>
+    </view>
+  </view>
+</view>

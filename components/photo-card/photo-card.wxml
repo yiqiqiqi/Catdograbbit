@@ -1,0 +1,110 @@
+<!-- components/photo-card/photo-card.wxml -->
+<view class="photo-card" bindlongpress="handleInnerLongPress">
+  <!-- 卡片头部 -->
+  <view class="card-header">
+    <view class="pet-info-left">
+      <image 
+        class="pet-avatar" 
+        src="{{card.petAvatar || '/images/default-pet-avatar.jpg'}}" 
+        mode="aspectFill"
+      ></image>
+      <view class="pet-info">
+        <text class="pet-name">{{card.petName}}</text>
+        <text class="create-time">{{card.createdAt}}</text>
+      </view>
+    </view>
+    <!-- 分享按钮 -->
+    <button 
+      class="share-btn" 
+      bindtap="onShare"
+      data-card="{{card}}"
+      open-type="share"
+    >
+      分享
+    </button>
+  </view>
+  
+  <!-- 描述 -->
+  <view class="description" wx:if="{{card.description}}">{{card.description}}</view>
+  
+  <!-- 媒体显示：补充data-type，区分图片/视频类型 -->
+  <view 
+    class="media-container {{card.images && card.images.length === 1 ? 'single-media' : 'multiple-media'}}"
+    wx:if="{{card.images && card.images.length}}"
+  >
+    <!-- 单张图片/视频 -->
+    <block wx:if="{{card.images.length === 1}}">
+      <view 
+        class="media-item single-item"
+        bindtap="{{card.images[0].mediaType === 'image' ? 'onPreviewImage' : 'onPlayVideo'}}"
+        data-index="0"
+        data-video-url="{{card.images[0].mediaType === 'video' ? card.images[0].imageUrl : ''}}"
+      >
+        <!-- 单张图片 -->
+        <image 
+          wx:if="{{card.images[0].mediaType === 'image'}}"
+          class="media-content single-image"
+          src="{{card.images[0].imageUrl}}"
+          mode="aspectFit"
+          lazy-load="true"
+        ></image>
+        
+        <!-- 单张视频 -->
+        <video 
+          wx:elif="{{card.images[0].mediaType === 'video'}}"
+          class="media-content single-video"
+          src="{{card.images[0].imageUrl}}"
+          controls
+          poster="{{card.images[0].coverUrl || '/images/default-video-cover.jpg'}}"
+          enable-play-gesture
+          object-fit="contain"
+        ></video>
+        
+        <!-- 视频时长标签 -->
+        <view class="video-duration" wx:if="{{card.images[0].duration}}">
+          {{formatDuration(card.images[0].duration)}}
+        </view>
+      </view>
+    </block>
+    
+    <!-- 多张图片/视频网格布局 -->
+    <view 
+      class="media-grid" data-count="{{card.images.length}}"
+      wx:elif="{{card.images.length > 1}}"
+    >
+      <block wx:for="{{card.images}}" wx:key="id" wx:for-index="index">
+        <view 
+          class="media-item grid-item"
+          bindtap="{{item.mediaType === 'image' ? 'onPreviewImage' : 'onPlayVideo'}}"
+          data-index="{{index}}"
+          data-video-url="{{item.mediaType === 'video' ? item.imageUrl : ''}}"
+        >
+          <!-- 图片 -->
+          <image 
+            wx:if="{{item.mediaType === 'image'}}"
+            class="media-content grid-image"
+            src="{{item.imageUrl}}"
+            mode="aspectFill"
+            lazy-load="true"
+          ></image>
+          
+          <!-- 视频 -->
+          <video 
+            wx:elif="{{item.mediaType === 'video'}}"
+            class="media-content grid-video"
+            src="{{item.imageUrl}}"
+            controls
+            poster="{{item.coverUrl || '/images/default-video-cover.jpg'}}"
+            enable-play-gesture
+            object-fit="cover"
+          ></video>
+          
+          <!-- 视频时长标签 -->
+          <view class="video-duration" wx:if="{{item.duration}}">
+            {{formatDuration(item.duration)}}
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

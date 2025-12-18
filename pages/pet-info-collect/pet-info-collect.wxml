@@ -1,0 +1,238 @@
+<swiper 
+  current="{{currentStep}}" 
+  bindchange="onSwiperChange"
+  style="height: {{swiperHeight}}px;"
+>
+  <!-- 步骤1：上传头像和宠物姓名 -->
+  <swiper-item>
+    <scroll-view scroll-y style="height: 100%;">
+      <view class="step-content">
+        <view class="step-title">头像和名字</view>
+        
+        <!-- 上传头像 -->
+        <view class="form-item">
+          <view class="upload-section">
+            <view class="avatar-container" bindtap="uploadImage">
+              <image 
+                wx:if="{{petInfo.AvatarUrl}}" 
+                src="{{petInfo.AvatarUrl}}" 
+                class="pet-avatar"
+                mode="aspectFill"
+              />
+              <view wx:else class="avatar-placeholder">
+                <image src="/images/camera.png" class="camera-icon" />
+                <text class="upload-text">点击上传头像</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 宠物姓名 -->
+        <view class="form-item">
+          <input 
+            placeholder="请输入宠物名字"
+            value="{{petInfo.Name}}"
+            bindinput="onNameInput"
+            maxlength="10"
+            class="name-input"
+          />
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  
+  <!-- 步骤2：宠物种类和生日 -->
+  <swiper-item>
+    <scroll-view scroll-y style="height: 100%;">
+      <view class="step-content">
+        <view class="step-title">种类和生日</view>
+        
+        <!-- 种类图标展示（直接点击选择） -->
+        <view class="type-selector">
+          <view class="type-grid">
+            <view 
+              class="type-card {{petInfo.Species === '狗' ? 'active' : ''}}"
+              bindtap="selectType"
+              data-type="狗"
+            >
+              <image src="/images/dog-icon.png" class="type-icon" />
+              <text class="type-name">狗狗</text>
+            </view>
+            <view 
+              class="type-card {{petInfo.Species === '猫' ? 'active' : ''}}"
+              bindtap="selectType"
+              data-type="猫"
+            >
+              <image src="/images/cat-icon.png" class="type-icon" />
+              <text class="type-name">猫咪</text>
+            </view>
+            <view 
+              class="type-card {{petInfo.Species === '其他' ? 'active' : ''}}"
+              bindtap="selectType"
+              data-type="其他"
+            >
+              <image src="/images/other-icon.png" class="type-icon" />
+              <text class="type-name">其他</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 宠物生日 -->
+        <view class="form-item birthday-item">
+          <view class="birthday-label">
+            <text>宠物生日</text>
+          </view>
+          <view class="birthday-selector">
+            <picker 
+              mode="date" 
+              value="{{petInfo.Birthday || defaultDate}}"
+              start="{{minDate}}"
+              end="{{maxDate}}"
+              bindchange="onBirthdayChange"
+            >
+              <view class="birthday-picker">
+                <image src="/images/calendar.png" class="calendar-icon" />
+                <text class="birthday-text {{petInfo.Birthday ? 'selected' : ''}}">
+                  {{petInfo.Birthday || '选择宠物生日'}}
+                </text>
+                <text class="icon-arrow">›</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+  
+  <!-- 步骤3：性别和绝育情况 -->
+  <swiper-item>
+    <scroll-view scroll-y style="height: 100%;">
+      <view class="step-content">
+        <view class="step-title">健康信息</view>
+        
+        <!-- 性别选择 -->
+        <view class="form-item">
+          <view class="form-label">
+            <text>性别</text>
+            <text class="required">*</text>
+          </view>
+          <view class="gender-section">
+            <view 
+              class="gender-option {{petInfo.Gender === 'male' ? 'active' : ''}}"
+              bindtap="selectGender"
+              data-gender="男孩"
+            >
+              <image 
+                src="/images/male.png" 
+                class="gender-icon"
+              />
+              <text class="gender-text">男孩</text>
+            </view>
+            <view 
+              class="gender-option {{petInfo.Gender === 'female' ? 'active' : ''}}"
+              bindtap="selectGender"
+              data-gender="女孩"
+            >
+              <image 
+                src="/images/female.png" 
+                class="gender-icon"
+              />
+              <text class="gender-text">女孩</text>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 是否绝育 -->
+        <view class="form-item">
+          <view class="form-label">
+            <text>是否绝育</text>
+            <text class="required">*</text>
+          </view>
+          <view class="neutered-section">
+            <view 
+              class="neutered-option {{petInfo.Sterilized === 'yes' ? 'active' : ''}}"
+              bindtap="selectNeutered"
+              data-value="true"
+            >
+              <text class="neutered-text">是</text>
+            </view>
+            <view 
+              class="neutered-option {{petInfo.Sterilized === 'no' ? 'active' : ''}}"
+              bindtap="selectNeutered"
+              data-value="false"
+            >
+              <text class="neutered-text">否</text>
+            </view>
+            <view 
+              class="neutered-option {{petInfo.Sterilized === 'unknown' ? 'active' : ''}}"
+              bindtap="selectNeutered"
+              data-value=""
+            >
+              <text class="neutered-text">不清楚</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </swiper-item>
+</swiper>
+
+<!-- 底部按钮 - 竖向排列 -->
+<view class="action-buttons">
+  <!-- 第一步：跳过 + 下一步 -->
+  <block wx:if="{{currentStep === 0}}">
+    <button 
+      class="btn-next {{isStepValid ? '' : 'disabled'}}"
+      bindtap="nextStep"
+      disabled="{{!isStepValid}}"
+      hover-class="{{isStepValid ? 'btn-hover' : ''}}"
+    >
+      下一步
+    </button>
+    <button 
+      class="btn-skip"
+      bindtap="skipForNow"
+      hover-class="btn-hover"
+    >
+      跳过，以后再说
+    </button>
+  </block>
+  
+  <!-- 第二步：上一步 + 下一步 -->
+  <block wx:if="{{currentStep === 1}}">
+    <button 
+      class="btn-next {{isStepValid ? '' : 'disabled'}}"
+      bindtap="nextStep"
+      disabled="{{!isStepValid}}"
+      hover-class="{{isStepValid ? 'btn-hover' : ''}}"
+    >
+      下一步
+    </button>
+    <button 
+      class="btn-prev"
+      bindtap="prevStep"
+      hover-class="btn-hover"
+    >
+      上一步
+    </button>
+  </block>
+  
+  <!-- 第三步：上一步 + 下一步 -->
+  <block wx:if="{{currentStep === 2}}">
+    <button 
+      class="btn-next {{isStepValid ? '' : 'disabled'}}"
+      bindtap="nextStep"
+      disabled="{{!isStepValid}}"
+      hover-class="{{isStepValid ? 'btn-hover' : ''}}"
+    >
+      完成
+    </button>
+    <button 
+      class="btn-prev"
+      bindtap="prevStep"
+      hover-class="btn-hover"
+    >
+      上一步
+    </button>
+  </block>
+</view>

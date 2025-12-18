@@ -1,0 +1,475 @@
+/* pages/index/index.wxss */
+/* ========== 分享视图样式优化 ========== */
+.shared-view-header {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  background: white;
+  border-bottom: 1rpx solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.shared-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+  text-align: center;
+}
+
+.shared-card-container {
+  padding: 30rpx;
+}
+
+.shared-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 40rpx rgba(139, 92, 246, 0.1);
+  border: 1rpx solid #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.shared-card:active {
+  transform: translateY(-4rpx);
+  box-shadow: 0 12rpx 50rpx rgba(139, 92, 246, 0.15);
+}
+
+/* ========== 状态样式优化 ========== */
+.error-state {
+  text-align: center;
+  padding: 120rpx 30rpx;
+  background: white;
+  border-radius: 20rpx;
+  margin: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.error-image {
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.6;
+}
+
+.error-text {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 40rpx;
+  line-height: 1.5;
+}
+
+.retry-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  border-radius: 20rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 15rpx rgba(139, 92, 246, 0.3);
+}
+
+.retry-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.4);
+}
+
+.loading-state {
+  text-align: center;
+  padding: 120rpx 0;
+  font-size: 28rpx;
+  color: #999;
+  background: white;
+  border-radius: 20rpx;
+  margin: 30rpx;
+}
+
+/* ========== 主容器优化 ========== */
+.index-container {
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.status-bar {
+  height: var(--status-bar-height);
+  background: transparent;
+}
+
+/* ========== 吸顶宠物选择器 ========== */
+.status-section {
+  position: sticky;
+  top: -1rpx;
+  z-index: 99;
+  border-bottom: 1rpx solid #f0f0f0;
+  /* box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05); */
+}
+
+/* ========== 上传区域 ========== */
+.upload-section {
+  margin: 20rpx 30rpx;
+}
+
+.upload-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 40rpx 40rpx;
+  text-align: center;
+  border: 2rpx dashed #9370DB;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.upload-card:active::before {
+  left: 100%;
+}
+
+.upload-card:active {
+  background: #fafafa;
+  transform: translateY(-2rpx);
+  border-color: #8b5cf6;
+  box-shadow: 0 8rpx 30rpx rgba(139, 92, 246, 0.15);
+}
+
+.upload-icon {
+  font-size: 80rpx;
+  color: #8b5cf6;
+  margin-bottom: 20rpx;
+  font-weight: 200;
+  transition: all 0.3s ease;
+}
+
+.upload-card:active .upload-icon {
+  transform: scale(1.1);
+}
+
+.upload-text {
+  display: block;
+  font-size: 32rpx;
+  color: #000;
+  margin-bottom: 10rpx;
+  font-weight: 500;
+}
+
+.upload-tip {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ========== 时间线和照片卡片优化 ========== */
+.timeline-section {
+  margin: 40rpx 30rpx 0;
+  position: relative;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 0 10rpx;
+}
+
+.timeline-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.photo-count {
+  font-size: 26rpx;
+  color: #999;
+  background: #f8f9fa;
+  padding: 8rpx 16rpx;
+  border-radius: 12rpx;
+}
+.photo-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8rpx;
+  overflow: hidden;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.photo-item:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+.count-text {
+  color: white;
+}
+
+/* 不同照片数量的网格布局 */
+.photo-grid[data-count="1"] .photo-item {
+  grid-column: 1 / -1;
+  aspect-ratio: 16/9;
+}
+
+.photo-grid[data-count="2"] .photo-item {
+  grid-column: span 2;
+}
+
+.photo-grid[data-count="4"] {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .photo-grid {
+    gap: 6rpx;
+  }
+}
+
+/* 平板适配 */
+@media (min-width: 768px) {
+  .photo-grid {
+    gap: 12rpx;
+  }
+}
+
+/* 确保时间线显示正确 */
+.timeline-connector {
+  height: 20rpx;
+  margin: 0 50rpx;
+  border-left: 2rpx dashed #e0e0e0;
+  position: relative;
+  z-index: 0;
+}
+
+/* 卡片头部优化 */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.pet-info-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.pet-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  border: 3rpx solid #ffffff;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.pet-info {
+  flex: 1;
+}
+
+.pet-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.create-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.share-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  border-radius: 20rpx;
+  padding: 12rpx 24rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2rpx 10rpx rgba(139, 92, 246, 0.3);
+}
+
+.share-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 1rpx 5rpx rgba(139, 92, 246, 0.4);
+}
+
+.share-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 8rpx;
+}
+
+/* 照片容器优化 */
+.photo-container {
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.main-photo {
+  width: 100%;
+  height: 400rpx;
+  display: block;
+}
+
+
+/* 卡片操作区域优化 */
+.card-actions {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.action-item:active {
+  background: #e9ecef;
+  transform: scale(0.98);
+}
+
+.action-icon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 8rpx;
+}
+
+/* 没有宠物状态 */
+.no-pet-state {
+  text-align: center;
+  padding: 120rpx 30rpx;
+  background: white;
+  border-radius: 20rpx;
+  margin: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.no-pet-image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.6;
+}
+
+.no-pet-text {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.add-pet-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  border-radius: 20rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 15rpx rgba(139, 92, 246, 0.3);
+}
+
+.add-pet-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.4);
+}
+
+/* ========== 空状态样式优化 ========== */
+.empty-state {
+  text-align: center;
+  padding: 120rpx 30rpx;
+  background: white;
+  border-radius: 20rpx;
+  margin: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.empty-image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 30rpx;
+  opacity: 0.6;
+}
+
+.empty-text {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+/* ========== 响应式设计优化 ========== */
+/* 加载动画优化 */
+@keyframes shimmer {
+  0% {
+    background-position: -200rpx 0;
+  }
+  100% {
+    background-position: calc(200rpx + 100%) 0;
+  }
+}
+
+.loading-shimmer {
+  animation: shimmer 1.5s infinite linear;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200rpx 100%;
+}
+
+/* ========== 滚动区域优化 ========== */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.normal-view {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 确保滚动时内容不会被遮盖 */
+.scroll-content {
+  flex: 1;
+  overflow-y: auto;
+}

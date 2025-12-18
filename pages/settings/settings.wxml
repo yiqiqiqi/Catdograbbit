@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="settings-section">
+  <!-- 个人信息 -->
+    <view class="settings-item" bindtap="goToProfile">
+      <view class="settings-left">
+        <image class="settings-icon" src="/images/profile-icon.png"></image>
+        <text class="settings-text">个人信息</text>
+      </view>
+      <image class="settings-arrow" src="/images/arrow-right.png"></image>
+    </view>
+  <!-- 协议与政策 -->
+    <view class="settings-item" bindtap="viewUserAgreement">
+      <view class="settings-left">
+        <image class="settings-icon" src="/images/agreement-icon.png"></image>
+        <text class="settings-text">用户协议</text>
+      </view>
+      <image class="settings-arrow" src="/images/arrow-right.png"></image>
+    </view>
+    
+    <view class="settings-item" bindtap="viewPrivacyPolicy">
+      <view class="settings-left">
+        <image class="settings-icon" src="/images/privacy-icon.png"></image>
+        <text class="settings-text">隐私政策</text>
+      </view>
+      <image class="settings-arrow" src="/images/arrow-right.png"></image>
+    </view>
+    
+    <view class="settings-item" bindtap="viewSDKInfo">
+      <view class="settings-left">
+        <image class="settings-icon" src="/images/sdk-icon.png"></image>
+        <text class="settings-text">第三方SDK信息收集说明</text>
+      </view>
+      <image class="settings-arrow" src="/images/arrow-right.png"></image>
+    </view>
+    <view class="settings-item logout-item" bindtap="logout">
+      <view class="settings-left">
+        <image class="settings-icon" src="/images/logout-icon.png"></image>
+        <text class="settings-text">退出登录</text>
+      </view>
+    </view>
+    
+    <view class="settings-item delete-item" bindtap="deleteAccount">
+      <view class="settings-left">
+        <image class="settings-icon" src="/images/delete-icon.png"></image>
+        <text class="settings-text">注销账号</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 版本信息 -->
+  <view class="version-info">
+    <text class="version-text">版本号 v1.0.0</text>
+  </view>
+</view>

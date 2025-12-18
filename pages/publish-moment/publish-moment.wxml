@@ -1,0 +1,115 @@
+<!-- pages/publish-moment/index.wxml -->
+<view class="publish-container">
+  <!-- 顶部导航栏 -->
+  <view class="publish-header">
+    <view class="header-left" bindtap="onCancel">
+      <text>取消</text>
+    </view>
+    <view class="header-title">
+      <text>记录美好时刻</text>
+    </view>
+    <view class="header-right">
+      <button 
+        class="publish-btn {{description || mediaList.length > 0 ? 'active' : ''}}" 
+        bindtap="onPublish"
+        disabled="{{!description.trim() && mediaList.length === 0 || !selectedPet}}"
+      >
+        发布
+      </button>
+    </view>
+  </view>
+
+  <!-- 主要内容区域 -->
+  <scroll-view class="publish-content" scroll-y>
+    <!-- 内容容器：包含文字输入和媒体选择 -->
+    <view wx:if="{{selectedPet}}" class="content-container">
+      <!-- 文字输入区域 -->
+        <textarea class="text-section"
+          class="description-input" 
+          placeholder="记录{{selectedPet.name}}的美好时刻..." 
+          placeholder-class="placeholder"
+          value="{{description}}"
+          bindinput="onInputDescription"
+          maxlength="500"
+          auto-focus
+          show-confirm-bar="false"
+        ></textarea>
+
+      <!-- 媒体选择区域 -->
+      <view class="media-section">
+        <!-- 已选择的媒体预览 -->
+        <view wx:if="{{mediaList.length > 0}}" class="media-preview">
+          <view class="media-grid">
+            <block wx:for="{{mediaList}}" wx:key="id" wx:for-index="index">
+              <view class="media-item {{item.type === 'video' ? 'video-item' : ''}}">
+                <!-- 图片预览 -->
+                <image 
+                  wx:if="{{item.type === 'image'}}" 
+                  class="preview-image" 
+                  src="{{item.path}}" 
+                  mode="aspectFill"
+                  bindtap="previewMedia"
+                  data-index="{{index}}"
+                >
+                  <!-- 实况图片标识 -->
+                  <view wx:if="{{item.isLivePhoto}}" class="live-badge">
+                    <text class="live-text">实况</text>
+                  </view>
+                </image>
+                
+                <!-- 视频预览 -->
+                <view wx:elif="{{item.type === 'video'}}" class="preview-video-container">
+                  <video 
+                    class="preview-video" 
+                    src="{{item.path}}" 
+                    controls="{{false}}"
+                    autoplay="{{false}}"
+                    loop="{{false}}"
+                    muted
+                    bindtap="previewMedia"
+                    data-index="{{index}}"
+                  >
+                  </video>
+                  <view class="video-badge">
+                    <text class="video-text">视频</text>
+                    <text class="video-duration">{{formatDuration(item.duration)}}</text>
+                  </view>
+                </view>
+                
+                <!-- 删除按钮 -->
+                <view class="delete-btn" bindtap="removeMedia" data-index="{{index}}">
+                  <text>×</text>
+                </view>
+              </view>
+            </block>
+            
+            <!-- 继续添加按钮 -->
+            <view wx:if="{{mediaList.length < 9}}" class="add-media-btn square-add-btn" bindtap="showMediaActionSheet">
+              <view class="add-icon">+</view>
+              <text class="add-text">添加</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 媒体选择按钮 - 正方形框 -->
+        <view wx:else class="square-media-selector" bindtap="showMediaActionSheet">
+          <view class="square-add-content">
+            <view class="add-icon-large">+</view>
+            <text class="add-text-large">添加照片或视频</text>
+            <text class="add-tips">最多9个</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 上传进度遮罩 -->
+  <view wx:if="{{isUploading}}" class="upload-progress">
+    <view class="progress-content">
+      <view class="progress-circle">
+        <text class="progress-text">{{uploadProgress}}%</text>
+      </view>
+      <text class="progress-info">正在上传...</text>
+    </view>
+  </view>
+</view>

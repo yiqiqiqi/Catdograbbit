@@ -1,0 +1,37 @@
+<view class="container flex flex-column align-center justify-center" style="min-height: 100vh; padding: 0 30rpx;">
+  <!-- 左上角猫爪 -->
+  <image src="/images/catcaw.png" class="catcaw-top-left"></image>
+  <!-- 右下角猫爪 -->
+  <image src="/images/catcaw.png" class="catcaw-bottom-right"></image>
+  
+  <!-- 宠物Logo -->
+  <image src="/images/pet-logo.png" class="pet-logo" mode="aspectFit"></image>
+  <!-- 标题 -->
+  <text class="login-title font-xl font-bold color-dark mt-40rpx">欢迎来到萌宠乐园</text>
+  <text class="login-subtitle font-sm color-gray mt-16rpx">登录后即可管理宠物档案</text>
+  
+  <!-- 登录按钮区域 -->
+  <view class="login-buttons mt-120rpx w-100">
+    <!-- 微信登录（主按钮） -->
+    <button 
+      class="btn-primary flex align-center justify-center" 
+      bindtap="wxLogin"
+      style="margin-bottom: 30rpx;"
+    >
+      微信快捷登录
+    </button>
+  </view>
+  
+<!-- 用户协议 -->
+<view class="agreement flex align-center font-xs color-gray">
+  <view class="checkbox-wrap" bindtap="toggleAgree">
+    <checkbox 
+      class="agreement-checkbox" 
+      color="#7a6cf0"
+      checked="{{isAgree}}"
+    ></checkbox>
+  </view>
+  <text class="ml-10rpx">我已阅读并同意</text>
+  <text class="color-primary ml-4rpx" bindtap="viewAgreement">《用户隐私协议》</text>
+</view>
+</view>

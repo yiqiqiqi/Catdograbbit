@@ -1,0 +1,33 @@
+<!-- 记录卡片组件 -->
+<view class="record-card">
+  <!-- 卡片头部（时间+类型） -->
+  <view class="card-header">
+    <text class="record-time">{{formatDate(createTime)}}</text>
+    <text class="record-type {{type}}">{{recordTypeName}}</text>
+  </view>
+
+  <!-- 卡片内容（文本+图片） -->
+  <view class="card-content">
+    <!-- 记录文本 -->
+    <text class="record-text">{{content}}</text>
+
+    <!-- 图片列表（最多显示3张，超过显示数量） -->
+    <view class="image-list" wx:if="{{images && images.length > 0}}">
+      <block wx:for="{{images.slice(0, 3)}}" wx:key="*this" wx:for-item="img">
+        <view class="image-item" bindtap="handleImagePreview" data-img="{{img}}">
+          <image src="{{img}}" mode="aspectFill" />
+          <!-- 超过3张时显示数量 -->
+          <view class="image-count" wx:if="{{index === 2 && images.length > 3}}">
+            <text>+{{images.length - 3}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 卡片操作区（可选：编辑/删除） -->
+  <view class="card-actions" wx:if="{{showActions}}">
+    <button class="action-btn edit-btn" bindtap="handleEdit">编辑</button>
+    <button class="action-btn delete-btn" bindtap="handleDelete">删除</button>
+  </view>
+</view>

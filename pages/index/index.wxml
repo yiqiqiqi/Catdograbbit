@@ -1,0 +1,78 @@
+<!-- 正常视图 - 显示所有功能 -->
+<view class="normal-view">
+  <!-- 状态栏和宠物选择器 -->
+  <view class="status-section">
+    <pet-picker
+      selectedPet="{{selectedPet}}"
+      petList="{{petList}}"
+      bind:petChange="onPetChange"
+      bind:editPet="onEditPet"
+      bind:petDeleted="onPetDeleted"
+    />
+  </view>
+
+  <!-- 主要内容区域 -->
+  <view class="main-content">
+    <!-- 上传区域 -->
+    <view class="upload-section" wx:if="{{selectedPet}}">
+      <view class="upload-card" bindtap="chooseImages">
+        <view class="upload-icon">+</view>
+        <text class="upload-text">记录{{selectedPet.name}}的美好时刻</text>
+        <text class="upload-tip">最多可选择9张照片</text>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:if="{{!loading && groupedPhotoCards.length === 0 && selectedPet}}" class="empty-state">
+      <text class="empty-text">还没有照片，快上传第一张吧！</text>
+    </view>
+
+    <!-- 加载状态 -->
+    <view wx:if="{{loading && groupedPhotoCards.length === 0}}" class="loading-state">
+      <view class="loading-content">
+        <text class="loading-text">加载中...</text>
+      </view>
+    </view>
+
+    <!-- 错误状态 -->
+    <!-- <view wx:if="{{hasError && !loading}}" class="error-state">
+      <view class="error-content">
+        <text class="error-text">{{errorMessage}}</text>
+        <button class="retry-btn" bindtap="onRetryLoad">重新加载</button>
+      </view>
+    </view> -->
+
+    <!-- 照片卡片时间线 -->
+    <view wx:if="{{groupedPhotoCards.length > 0}}" class="timeline-section">
+      <view class="timeline-header">
+        <text class="timeline-title">成长记录</text>
+        <text class="photo-count">共{{totalPhotoCount}}张照片</text>
+      </view>
+      
+      <view>
+        <block wx:for="{{groupedPhotoCards}}" wx:key="cardId" wx:for-item="item" wx:for-index="index">
+        <photo-card 
+          card="{{item}}"
+          bind:share="shareCard"
+          bind:preview="previewImage"
+          bind:imageerror="onImageError"
+          bind:longpress="onCardLongPress"
+        />
+      </block>
+      </view>
+
+      <!-- 加载更多 -->
+      <view wx:if="{{hasMore && groupedPhotoCards.length > pageSize}}" class="load-more">
+        <button class="load-more-btn" bindtap="loadMore" disabled="{{isLoadingMore}}">
+          {{isLoadingMore ? '加载中...' : '加载更多'}}
+        </button>
+      </view>
+    </view>
+
+    <!-- 没有选择宠物时的提示 -->
+    <view wx:if="{{!selectedPet && petList.length === 0 && !loading}}" class="no-pet-state">
+      <text class="no-pet-text">还没有宠物，快去添加一只吧！</text>
+      <button class="add-pet-btn" bindtap="onAddPet">添加宠物</button>
+    </view>
+  </view>
+</view>

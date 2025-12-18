@@ -1,0 +1,48 @@
+<!-- pages/daily-task/daily-task.wxml -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">每日任务</text>
+  </view>
+
+  <!-- 积分概览卡片 -->
+  <view class="points-card">
+    <view class="current-points">
+      <text class="points-label">当前积分</text>
+      <text class="points-value">{{userPoints}}</text>
+    </view>
+    <view class="today-earned">
+      <text class="earned-label">今日获得</text>
+      <text class="earned-value">{{todayPoints}}</text>
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <view class="task-section">
+    <view class="section-header">
+      <text class="section-title">任务列表</text>
+      <text class="completion-rate">{{completedTasksCount}}/{{totalTasksCount}}</text>
+    </view>
+
+    <view class="task-list">
+      <view class="task-item" wx:for="{{taskList}}" wx:key="id">
+        <view class="task-content">
+          <text class="task-name">{{item.name}}</text>
+          <text class="task-reward">+{{item.points}}积分</text>
+        </view>
+        <view 
+          class="task-btn {{item.completed ? 'completed' : ''}}" 
+          bindtap="toggleTaskCompletion"
+          data-taskid="{{item.id}}"
+        >
+          <text class="btn-text">{{item.completed ? '已完成' : '去完成'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 任务完成提示 -->
+  <view class="toast-message {{showToast ? 'show' : ''}}">
+    <text class="toast-text">{{toastMessage}}</text>
+  </view>
+</view>

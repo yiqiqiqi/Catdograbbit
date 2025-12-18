@@ -1,0 +1,100 @@
+<!-- pages/feedback/feedback.wxml -->
+<view class="container">
+  <!-- 反馈表单 -->
+  <view class="section feedback-form">
+    <view class="form-item">
+      <text class="form-label">反馈类型</text>
+      <picker 
+        class="form-picker" 
+        range="{{feedbackTypes}}" 
+        range-key="name"
+        value="{{typeIndex}}"
+        bindchange="onTypeChange"
+      >
+        <view class="picker-content">
+          <text class="picker-text">{{feedbackTypes[typeIndex].name}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">联系方式</text>
+      <input 
+        class="form-input" 
+        placeholder="请输入手机号或邮箱（选填）" 
+        value="{{contact}}"
+        bindinput="onContactInput"
+      />
+    </view>
+
+    <view class="form-item content-item">
+      <text class="form-label">反馈内容</text>
+      <textarea 
+        class="content-textarea" 
+        placeholder="请详细描述您遇到的问题或建议..." 
+        placeholder-class="placeholder"
+        maxlength="500"
+        value="{{content}}"
+        bindinput="onContentInput"
+        show-confirm-bar="{{false}}"
+        auto-height
+      ></textarea>
+      <view class="word-count">{{content.length}}/500</view>
+    </view>
+
+    <!-- 图片上传 -->
+    <view class="form-item image-upload">
+      <text class="form-label">相关截图</text>
+      <view class="image-list">
+        <block wx:for="{{images}}" wx:key="*this" wx:for-item="image" wx:for-index="index">
+          <view class="image-item">
+            <image class="image-preview" src="{{image}}" mode="aspectFill" />
+            <view class="image-remove" data-index="{{index}}" bindtap="onRemoveImage">×</view>
+          </view>
+        </block>
+        
+        <view class="image-item add-image" wx:if="{{images.length < 3}}" bindtap="onAddImage">
+          <view class="add-icon">+</view>
+          <text class="add-text">添加图片</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button 
+      class="btn-submit {{!content ? 'disabled' : ''}}" 
+      bindtap="onSubmit"
+      disabled="{{!content}}"
+    >
+      提交反馈
+    </button>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="section contact-info">
+    <view class="contact-title">其他联系方式</view>
+    <view class="contact-items">
+      <view class="contact-item" bindtap="onCopyWechat">
+        <text class="contact-icon">💬</text>
+        <text class="contact-text">微信客服: petdiary-service</text>
+        <text class="contact-action">复制</text>
+      </view>
+      <view class="contact-item" bindtap="onSendEmail">
+        <text class="contact-icon">📧</text>
+        <text class="contact-text">邮箱: support@petdiary.com</text>
+        <text class="contact-action">发送</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载遮罩 -->
+  <view class="loading-mask" wx:if="{{isLoading}}">
+    <view class="loading-content">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">提交中...</text>
+    </view>
+  </view>
+</view>

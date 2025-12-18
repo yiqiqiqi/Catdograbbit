@@ -1,0 +1,101 @@
+<view class="pet-edit">
+  <view class="form-section">
+    <view class="avatar-upload" bindtap="chooseAvatar">
+      <image class="avatar" src="{{avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <text class="avatar-text" wx:if="{{!avatarUrl}}">点击上传头像</text>
+    </view>
+
+    <!-- 宠物姓名-->
+    <view class="form-item">
+      <text class="label required">宠物姓名</text>
+      <input class="input" value="{{name}}" placeholder="请输入宠物姓名" bindinput="onNameInput" />
+      <text class="error">{{errors.name}}</text>
+    </view>
+
+    <!-- 宠物种类 -->
+    <view class="form-item">
+      <text class="label">宠物种类</text>
+      <picker value="{{petTypeIndex}}" range="{{petTypes}}" bindchange="onPetTypeChange">
+        <view class="picker">
+          {{petTypeIndex >= 0 ? petTypes[petTypeIndex] : '请选择种类'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 品种 -->
+    <view class="form-item">
+      <text class="label">品种</text>
+      <input class="input" value="{{breed}}" placeholder="请输入品种" bindinput="onBreedInput" />
+    </view>
+    <!-- 性别 -->
+<view class="form-item">
+  <text class="label">性别</text>
+  <view class="option-group option-group--wide">
+    <label class="option-item {{gender === 'male' ? 'active' : ''}}" bindtap="onGenderChange" data-value="male">
+      <span class="radio-dot"></span>
+      <span class="option-label">男孩</span>
+    </label>
+    <label class="option-item {{gender === 'female' ? 'active' : ''}}" bindtap="onGenderChange" data-value="female">
+      <span class="radio-dot"></span>
+      <span class="option-label">女孩</span>
+    </label>
+  </view>
+</view>
+
+<!-- 是否绝育 -->
+<view class="form-item">
+  <text class="label">是否绝育</text>
+  <view class="option-group option-group--wide">
+    <label class="option-item {{sterilized === 'yes' ? 'active' : ''}}" bindtap="onSterilizedChange" data-value="yes">
+      <span class="radio-dot"></span>
+      <span class="option-label">是</span>
+    </label>
+    <label class="option-item {{sterilized === 'no' ? 'active' : ''}}" bindtap="onSterilizedChange" data-value="no">
+      <span class="radio-dot"></span>
+      <span class="option-label">否</span>
+    </label>
+  </view>
+</view>
+
+<!-- 疫苗情况 -->
+<view class="form-item">
+  <text class="label">疫苗情况</text>
+  <view class="checkbox-group">
+    <label class="checkbox-option {{vaccines.rabies ? 'active' : ''}}" bindtap="onVaccineChange" data-type="rabies">
+      <span class="checkbox-box"></span>
+      <span class="option-label">狂犬疫苗</span>
+    </label>
+    <label class="checkbox-option {{vaccines.combo ? 'active' : ''}}" bindtap="onVaccineChange" data-type="combo">
+      <span class="checkbox-box"></span>
+      <span class="option-label">联合疫苗</span>
+    </label>
+    <label class="checkbox-option {{vaccines.other ? 'active' : ''}}" bindtap="onVaccineChange" data-type="other">
+      <span class="checkbox-box"></span>
+      <span class="option-label">其他疫苗</span>
+    </label>
+  </view>
+</view>
+<view class="form-item">
+  <text class="label">生日</text>
+  <picker 
+    mode="date" 
+    value="{{birthday}}" 
+    start="1900-01-01" 
+    end="{{today}}"
+    bindchange="onBirthdayChange"
+  >
+    <view class="picker">
+      {{birthday ? birthday : '请选择生日'}}
+    </view>
+  </picker>
+</view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="actions">
+    <button class="btn submit" bindtap="onSubmit" loading="{{isSubmitting}}" disabled="{{isSubmitting}}">
+      {{isEdit ? '更新' : '创建'}}
+    </button>
+    <button class="btn cancel" bindtap="onCancel">取消</button>
+  </view>
+</view>

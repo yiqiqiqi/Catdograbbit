@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "pet-picker": "/components/pet-picker/pet-picker"
+  }
+}

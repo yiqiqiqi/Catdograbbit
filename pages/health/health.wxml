@@ -1,0 +1,137 @@
+<!-- pages/record/record.wxml -->
+<view class="record-container">
+  <!-- 状态栏占位 -->
+  <pet-picker
+    selectedPet="{{selectedPet}}"
+    petList="{{petList}}"
+    bind:petChange="onPetChange"
+    bind:editPet="onEditPet"
+    bind:petDeleted="onPetDeleted"
+  />
+  <!-- 顶部标签切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'record' ? 'active' : ''}}" bindtap="switchTab" data-tab="record">
+      记录
+    </view>
+    <view class="tab-item {{activeTab === 'reminder' ? 'active' : ''}}" bindtap="switchTab" data-tab="reminder">
+      提醒
+    </view>
+  </view>
+
+  <!-- 日历区域 -->
+  <view class="calendar-section">
+    <view class="month-header">
+      <text class="month-title">{{currentMonth}}月</text>
+    </view>
+    
+    <view class="weekdays">
+      <text class="weekday">M</text>
+      <text class="weekday">T</text>
+      <text class="weekday">W</text>
+      <text class="weekday">T</text>
+      <text class="weekday">F</text>
+      <text class="weekday">S</text>
+      <text class="weekday">S</text>
+    </view>
+    
+    <view class="days-grid">
+      <view 
+        wx:for="{{calendarDays}}" 
+        wx:key="index"
+        class="day {{item.isCurrentMonth ? '' : 'other-month'}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+        bindtap="selectDay"
+        data-day="{{item}}"
+      >
+        <text class="day-number">{{item.day}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 记录内容区域 -->
+  <view class="records-section">
+    <view class="section-title">日常记录</view>
+    
+    <!-- 饮食记录 -->
+    <view class="record-item" bindtap="editDiet">
+      <view class="record-header">
+        <text class="record-name">饮食</text>
+        <text class="record-value">{{todayRecords.diet || '未记录'}}</text>
+      </view>
+      <view class="record-icon food-icon"></view>
+    </view>
+    
+    <!-- 喝水记录 -->
+    <view class="record-item" bindtap="editWater">
+      <view class="record-header">
+        <text class="record-name">喝水</text>
+        <text class="record-value">{{todayRecords.water || '0'}}ml</text>
+      </view>
+      <view class="record-icon water-icon"></view>
+    </view>
+    
+    <!-- 体重记录 -->
+    <view class="record-item" bindtap="editWeight">
+      <view class="record-header">
+        <text class="record-name">体重</text>
+        <text class="record-value">{{todayRecords.weight || '0'}}kg</text>
+      </view>
+      <view class="record-icon weight-icon"></view>
+    </view>
+    
+    <!-- 洗护记录 -->
+    <view class="record-item" bindtap="editGrooming">
+      <view class="record-header">
+        <text class="record-name">洗护</text>
+        <text class="record-value">{{todayRecords.grooming || '未记录'}}</text>
+      </view>
+      <view class="record-icon grooming-icon"></view>
+    </view>
+  </view>
+
+  <!-- 宠物选择弹窗 -->
+  <view class="modal-mask" wx:if="{{isPetModalShow}}" bindtap="closePetModal"></view>
+  <view class="pet-modal" wx:if="{{isPetModalShow}}">
+    <view class="modal-header">
+      <text class="modal-title">选择宠物</text>
+      <image src="/images/icon/close.png" class="close-icon" mode="aspectFit" bindtap="closePetModal"></image>
+    </view>
+    <view class="pet-list">
+      <view 
+        wx:for="{{petList}}" 
+        wx:key="petId"
+        class="pet-item {{item.petId === selectedPet.petId ? 'selected-pet' : 'unselected-pet'}}"
+        bindtap="changePet"
+        data-petid="{{item.petId}}"
+      >
+        <image src="{{item.avatar || '/images/default-avatar.png'}}" class="pet-item-avatar" mode="aspectFit"></image>
+        <view class="pet-item-info">
+          <text class="pet-item-name">{{item.name}}</text>
+          <text class="pet-item-type">{{item.typeName}} · {{item.breed || '未知品种'}}</text>
+        </view>
+        <view class="pet-item-actions">
+          <image 
+            src="/images/icon/selected.png" 
+            class="selected-icon" 
+            mode="aspectFit"
+            wx:if="{{item.petId === selectedPet.petId}}"
+          ></image>
+          <!-- 添加编辑按钮 -->
+          <button 
+            class="edit-text-btn" 
+            catchtap="editPet"
+            data-pet="{{item}}"
+          >编辑</button>
+          <!-- 添加删除按钮 -->
+          <button 
+            class="delete-text-btn" 
+            catchtap="deletePet"
+            data-pet="{{item}}"
+          >删除</button>
+        </view>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <button class="add-pet-btn" bindtap="gotoAddPet">添加新宠物</button>
+    </view>
+  </view>
+  </view>

@@ -1,0 +1,464 @@
+.container {
+
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+/* 状态栏占位 */
+.status-bar {
+  height: var(--status-bar-height);
+  background-color: #f8f5ff;
+}
+
+/* 缺角风格用户信息卡片 */
+.user-info-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f9f5ff 100%);
+  margin: 10rpx 10rpx 30rpx;
+  padding: 50rpx 30rpx 40rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+              0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  /* 缺角效果 */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 40rpx) 0, 
+    100% 40rpx, 
+    100% 100%, 
+    40rpx 100%, 
+    0 calc(100% - 40rpx)
+  );
+}
+
+/* 左上角装饰元素 */
+.user-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+/* 右下角装饰元素 */
+.user-info-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(315deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+/* 头像区域 - 与缺角风格呼应 */
+.user-avatar-container {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 30rpx;
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  padding: 6rpx;
+  margin-bottom: 30rpx;
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+  0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+  /* 头像容器也使用缺角设计 */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 15rpx) 0, 
+    100% 15rpx, 
+    100% 100%, 
+    15rpx 100%, 
+    0 calc(100% - 15rpx)
+  );
+  transition: all 0.3s ease;
+}
+
+/* 内部装饰线 */
+.user-info-card .decorative-line {
+  position: absolute;
+  width: 60rpx;
+  height: 3rpx;
+  background: #8b5cf6;
+  z-index: 2;
+}
+
+.user-info-card .decorative-line.top {
+  top: 20rpx;
+  left: 20rpx;
+}
+
+.user-info-card .decorative-line.bottom {
+  bottom: 20rpx;
+  right: 20rpx;
+}
+
+.user-avatar-container:active {
+  transform: scale(0.95);
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+  0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+}
+
+.user-avatar {
+  width: 100%;
+  height: 100%;
+  /* 头像内部也使用缺角 */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 12rpx) 0, 
+    100% 12rpx, 
+    100% 100%, 
+    12rpx 100%, 
+    0 calc(100% - 12rpx)
+  );
+}
+
+/* 昵称区域 */
+.user-name-wrap {
+  margin-bottom: 16rpx;
+  width: 100%;
+  text-align: center;
+}
+
+.user-name {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #4c1d95;
+  letter-spacing: -0.5rpx;
+  position: relative;
+  display: inline-block;
+}
+
+.user-name::after {
+  content: '';
+  position: absolute;
+  bottom: -8rpx;
+  left: 10%;
+  width: 80%;
+  height: 3rpx;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+}
+
+/* 用户ID区域 */
+.user-id-wrap {
+  width: 100%;
+  text-align: center;
+}
+
+.user-id {
+  font-size: 26rpx;
+  color: #7e7e8f;
+  font-weight: 500;
+}
+
+/* 编辑资料按钮 - 缺角边框 */
+.edit-btn {
+  border: 3rpx solid #8b5cf6;
+  color: #8b5cf6;
+  padding: 18rpx 50rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10rpx);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  /* 按钮缺角 */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 12rpx) 0, 
+    100% 12rpx, 
+    100% 100%, 
+    12rpx 100%, 
+    0 calc(100% - 12rpx)
+  );
+  margin-top: 10rpx;
+}
+
+.edit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.edit-btn:active {
+  background: rgba(139, 92, 246, 0.1);
+  transform: scale(0.96);
+}
+
+.edit-btn:active::before {
+  left: 100%;
+}
+
+/* 功能网格 - 保持常规样式 */
+.function-grid {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30rpx 40rpx;
+  gap: 30rpx;
+}
+.function-card {
+  flex: 1;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.9) 0%, 
+    rgba(248, 245, 255, 0.8) 100%);
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 8rpx 32rpx rgba(139, 92, 246, 0.12),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.6);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1rpx solid rgba(139, 92, 246, 0.1);
+  backdrop-filter: blur(10rpx);
+  overflow: hidden;
+}
+
+.function-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3rpx;
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.function-card:active::before {
+  transform: scaleX(1);
+}
+
+.function-name {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: 500;
+  margin-top: 20rpx;
+}
+
+/* 小红点 */
+.badge-dot {
+  position: absolute;
+  top: 30rpx;
+  right: 30rpx;
+  width: 16rpx;
+  height: 16rpx;
+  background: #ff4757;
+  border-radius: 50%;
+  border: 2rpx solid white;
+}
+
+/* 设置容器 - 保持常规样式 */
+.settings-container {
+  margin: 0 30rpx;
+}
+
+.settings-title {
+  font-size: 28rpx;
+  color: #999999;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+}
+
+.settings-list {
+  background: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+  0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+  margin-bottom: 40rpx;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.setting-item:active {
+  background-color: #f8f5ff;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.item-text {
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.item-arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 2rpx solid #cccccc;
+  border-right: 2rpx solid #cccccc;
+  transform: rotate(45deg);
+}
+
+/* 退出登录 - 保持常规样式 */
+.logout-container {
+  margin-top: 40rpx;
+}
+
+.logout-btn {
+  background: #ffffff;
+  color: #ff4757;
+  text-align: center;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+  0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.logout-btn:active {
+  background: #fff5f5;
+  transform: translateY(4rpx);
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+              0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+}
+
+/* ===================== 原生progress积分等级区域 ===================== */
+.points-level-area {
+  width: 92%;
+  margin: 10rpx 0 30rpx;
+}
+
+.points-level-container {
+  padding:28rpx 64rpx 28rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+/* 进度条+数值+等级组合 */
+.progress-group {
+  position: relative;
+  width: 100%;
+}
+
+/* 数值展示（小圆点上方，同步移动） */
+.progress-num {
+  position: absolute;
+  top: -80rpx; /* 位于小圆点正上方（根据小圆点大小调整） */
+  left: var(--progress-width); /* 绑定进度变量，同步移动 */
+  transform: translateX(-50%); /* 水平居中对齐进度位置，避免偏移 */
+  font-size: 24rpx;
+  color: #6b6b78;
+  font-weight: 500;
+  z-index: 2; /* 层级高于进度条，不被遮挡 */
+}
+/* 原生progress容器（含叠加小圆点） */
+.progress-wrap {
+  width: 100%;
+  margin-top: 20rpx;
+  position: relative;
+  --progress-width: 0%; /* 进度变量（由JS传递） */
+}
+
+/* 微信原生进度条样式 */
+.native-progress {
+  width: 100%;
+  height: 12rpx;
+  border-radius: 6rpx !important;
+  overflow: hidden;
+  color: #8b5cf6 !important; /* 进度条颜色（纯色，替代渐变） */
+  background-color: #e0d6ff !important; /* 背景色 */
+}
+
+/* 进度小圆点（叠加在原生进度条上） */
+.progress-dot {
+  position: absolute;
+  top: 50%;
+  left: var(--progress-width); /* 跟随进度百分比 */
+  transform: translate(-50%, -50%);
+  width: 24rpx;
+  height: 24rpx;
+  background: #8b5cf6; /* 纯色，与进度条一致 */
+  border-radius: 50%;
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.3);
+  border: 4rpx solid #fff; /* 白色边框突出圆点 */
+  z-index: 2;
+}
+
+/* 等级标识（右侧悬浮，不占用进度条宽度） */
+.level-badge {
+  position: absolute;
+  top: -30rpx;
+  right: -80rpx; /* 超出progress-wrap范围，避免挤压进度条 */
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a78bfa;
+  font-size: 28rpx;
+  font-weight: 600;
+  z-index: 1;
+}
+
+/* 升级提示区域 */
+.upgrade-tip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #7e7e8f;
+}
+
+.highlight {
+  color: #8b5cf6;
+  font-weight: 700;
+  margin: 0 4rpx;
+}
+
+/* 升级按钮（缺角风格） */
+.upgrade-btn {
+  padding: 8rpx 24rpx;
+  background-color: #8b5cf6;
+  color: #fff;
+  font-size: 22rpx;
+  border-radius: 16rpx;
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 8rpx) 0, 
+    100% 8rpx, 
+    100% 100%, 
+    8rpx 100%, 
+    0 calc(100% - 8rpx)
+  );
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.upgrade-btn:active {
+  transform: scale(0.95);
+}
+

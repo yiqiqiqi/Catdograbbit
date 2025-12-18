@@ -1,0 +1,153 @@
+<!-- pages/activity-detail/activity-detail.wxml -->
+<view class="container">
+  <!-- 活动封面 -->
+  <view class="activity-cover">
+    <image class="cover-image" src="{{activity.coverImage || '/images/default-activity.jpg'}}" mode="aspectFill" />
+    <view class="cover-overlay">
+      <view class="activity-status {{activity.status}}">
+        {{getStatusText(activity.status)}}
+      </view>
+      <view class="cover-content">
+        <text class="activity-title">{{activity.title}}</text>
+        <view class="activity-stats">
+          <text class="stat">⭐ {{activity.rating || '4.8'}}</text>
+          <text class="stat">❤️ {{activity.likeCount || 0}}</text>
+          <text class="stat">👥 {{activity.currentParticipants || 0}}/{{activity.maxParticipants || '不限'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 活动信息 -->
+  <view class="section activity-info">
+    <view class="info-item">
+      <text class="info-icon">📅</text>
+      <view class="info-content">
+        <text class="info-label">活动时间</text>
+        <text class="info-text">{{formatActivityTime(activity.startTime, activity.endTime)}}</text>
+      </view>
+    </view>
+
+    <view class="info-item">
+      <text class="info-icon">📍</text>
+      <view class="info-content">
+        <text class="info-label">活动地点</text>
+        <text class="info-text">{{activity.location}}</text>
+        <text class="info-address">{{activity.address}}</text>
+      </view>
+      <text class="info-action" bindtap="onViewLocation">查看地图</text>
+    </view>
+
+    <view class="info-item">
+      <text class="info-icon">👤</text>
+      <view class="info-content">
+        <text class="info-label">组织方</text>
+        <text class="info-text">{{activity.organizer || '宠物成长日记'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 活动描述 -->
+  <view class="section activity-description">
+    <view class="section-title">活动介绍</view>
+    <text class="description-content">{{activity.description}}</text>
+    
+    <!-- 活动图片 -->
+    <view class="activity-images" wx:if="{{activity.images && activity.images.length > 0}}">
+      <block wx:for="{{activity.images}}" wx:key="*this">
+        <image class="activity-image" src="{{item}}" mode="aspectFill" bindtap="onPreviewImage" data-src="{{item}}" />
+      </block>
+    </view>
+  </view>
+
+  <!-- 报名信息 -->
+  <view class="section participation-info" wx:if="{{activity.joined}}">
+    <view class="section-title">我的报名</view>
+    <view class="participation-list">
+      <block wx:for="{{joinedPets}}" wx:key="petId">
+        <view class="participation-item">
+          <image class="pet-avatar" src="{{item.avatar || '/images/default-pet.png'}}" />
+          <text class="pet-name">{{item.name}}</text>
+          <text class="participation-status">已报名</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 参与用户 -->
+  <view class="section participants" wx:if="{{participants.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">已报名用户 ({{participants.length}})</text>
+    </view>
+    <view class="participants-list">
+      <block wx:for="{{participants}}" wx:key="userId">
+        <view class="participant-item">
+          <image class="user-avatar" src="{{item.avatar || '/images/default-avatar.png'}}" />
+          <text class="user-name">{{item.nickname}}</text>
+          <text class="pets-count">{{item.pets.length}}只宠物</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-actions">
+    <button class="btn-like {{activity.liked ? 'liked' : ''}}" bindtap="onLikeActivity">
+      <text class="like-icon">{{activity.liked ? '❤️' : '🤍'}}</text>
+      <text class="like-text">喜欢</text>
+    </button>
+    <button 
+      class="btn-join {{activity.status !== 'open' ? 'disabled' : ''}} {{activity.joined ? 'joined' : ''}}"
+      bindtap="onJoinActivity"
+      disabled="{{activity.status !== 'open'}}"
+    >
+      {{getJoinButtonText(activity)}}
+    </button>
+  </view>
+
+  <!-- 报名弹窗 -->
+  <view class="join-modal" wx:if="{{showJoinModal}}">
+    <view class="modal-mask" bindtap="onCloseModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">选择参与宠物</text>
+        <text class="modal-close" bindtap="onCloseModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="pets-list">
+          <block wx:for="{{availablePets}}" wx:key="petId">
+            <view 
+              class="pet-select-item {{selectedPets.includes(item.petId) ? 'selected' : ''}}"
+              data-pet-id="{{item.petId}}"
+              bindtap="onTogglePet"
+            >
+              <image class="pet-avatar" src="{{item.avatar || '/images/default-pet.png'}}" />
+              <text class="pet-name">{{item.name}}</text>
+              <text class="check-icon">{{selectedPets.includes(item.petId) ? '✓' : ''}}</text>
+            </view>
+          </block>
+        </view>
+        
+        <view class="modal-tips" wx:if="{{availablePets.length === 0}}">
+          <text class="tips-text">暂无可用宠物</text>
+          <text class="tips-subtext">请先添加宠物再报名活动</text>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="onCloseModal">取消</button>
+        <button 
+          class="btn-confirm {{selectedPets.length === 0 ? 'disabled' : ''}}"
+          bindtap="onConfirmJoin"
+          disabled="{{selectedPets.length === 0}}"
+        >
+          确认报名 ({{selectedPets.length}})
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

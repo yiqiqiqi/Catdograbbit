@@ -1,0 +1,108 @@
+<view class="container">
+  <!-- 状态栏占位 -->
+  <view class="status-bar"></view>
+
+  <!-- 用户信息卡片 -->
+  <view class="user-info-card">
+    <view class="decorative-line top"></view>
+    <view class="decorative-line bottom"></view>
+    <!-- 头像区域 -->
+    <view class="user-avatar-container">
+      <image 
+        class="user-avatar" 
+        src="{{userInfo.avatarUrl || '/images/avatar-default.png'}}" 
+        mode="aspectFill"
+      ></image>
+    </view>
+
+    <!-- 昵称 -->
+    <view class="user-name-wrap">
+      <text class="user-name">{{userInfo.nickName || '未设置昵称'}}</text>
+    </view>
+
+    <!-- 用户ID -->
+    <view class="user-id-wrap">
+      <text class="user-id">ID：{{userId || '未登录'}}</text>
+    </view>
+
+    <!-- 积分等级区域（原生progress改造） -->
+    <view class="points-level-area">
+      <navigator 
+        url="/pages/points-center/points-center" 
+        class="points-level-container"
+      >
+        <!-- 进度条+数值+等级+小圆点区域 -->
+        <view class="progress-group">
+         
+          <!-- 原生progress容器（含叠加小圆点） -->
+          <view class="progress-wrap" style="--progress-width: {{progressStep}}%">
+           <!-- 数值展示（如：0/100） -->
+           <text class="progress-num"  wx:if="{{userLevel < 6}}">
+            {{progressStep || 0}}/{{currentLevelMax}}
+          </text>
+         
+            <!-- 微信原生进度条 -->
+            <progress
+              percent="{{progressStep}}"
+              stroke-width="12"
+              color="#8b5cf6"
+              backgroundColor="#e0d6ff"
+              class="native-progress"
+            />
+            
+            <!-- 进度小圆点（叠加在原生进度条上） -->
+            <view class="progress-dot"></view>
+            <!-- 等级标识（右侧悬浮） -->
+            <view class="level-badge">
+              Lv.{{userLevel || 0}}
+            </view>
+          </view>
+        </view>
+
+        <!-- 升级提示+按钮 -->
+        <view class="upgrade-tip" wx:if="{{userLevel < 6}}">
+          <text class="tip-text" bindtap="navigateToDailyTask">
+            升级Lv.{{userLevel+1}}还差<text class="highlight">{{needPoints}}</text>积分,去做任务>
+          </text>
+        </view>
+        <view class="upgrade-tip" wx:else>
+          <text class="tip-text">已达最高等级</text>
+        </view>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- 功能网格+设置列表（原有内容不变） -->
+  <view class="function-grid">
+    <view class="function-card" bindtap="navigateToDailyTask">
+      <text class="function-name">每日任务</text>
+      <view class="badge-dot" wx:if="{{hasUnfinishedTask && hasUserInfo}}"></view>
+    </view>
+    <view class="function-card" bindtap="navigateToPointsCenter">
+      <text class="function-name">积分中心</text>
+    </view>
+  </view>
+
+  <view class="settings-container">
+    <view class="settings-list">
+      <view class="setting-item" bindtap="updateProfile">
+        <text class="item-text">编辑资料</text>
+        <view class="item-arrow"></view>
+      </view>
+      <view class="setting-item" bindtap="contactUs">
+        <text class="item-text">帮助与反馈</text>
+        <view class="item-arrow"></view>
+      </view>
+      <view class="setting-item" bindtap="showAbout">
+        <text class="item-text">关于我们</text>
+        <view class="item-arrow"></view>
+      </view>
+    </view>
+
+    <view class="logout-container">
+      <view class="logout-btn" bindtap="logout">
+        退出登录
+      </view>
+    </view>
+  </view>
+</view>

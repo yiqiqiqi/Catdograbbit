@@ -1,0 +1,9 @@
+{
+
+  "usingComponents": {
+    "pet-picker": "/components/pet-picker/pet-picker",
+    "photo-card":"/components/photo-card/photo-card"
+  },
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#f8f9fa"
+}

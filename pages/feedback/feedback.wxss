@@ -1,0 +1,271 @@
+/* pages/feedback/feedback.wxss */
+
+.container {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+/* 区块样式 */
+.section {
+  margin: 30rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+}
+
+/* 表单项目 */
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 0;
+  border-bottom: 2rpx solid #f8f8f8;
+}
+
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.content-item {
+  align-items: flex-start;
+}
+
+.form-label {
+  font-size: 30rpx;
+  color: #333;
+  width: 180rpx;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #333;
+  padding: 0 20rpx;
+}
+
+.form-picker {
+  flex: 1;
+}
+
+.picker-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+}
+
+.picker-text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 内容输入 */
+.content-textarea {
+  flex: 1;
+  min-height: 200rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #333;
+  padding: 0;
+}
+
+.content-textarea .placeholder {
+  color: #ccc;
+  font-size: 28rpx;
+}
+
+.word-count {
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+  font-size: 22rpx;
+  color: #999;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+/* 图片上传 */
+.image-upload {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.image-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+  width: 100%;
+  margin-top: 20rpx;
+}
+
+.image-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 16rpx;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.image-remove {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  width: 36rpx;
+  height: 36rpx;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20rpx;
+  font-weight: bold;
+}
+
+.add-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx dashed #ddd;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.add-image:active {
+  background: #f0f0f0;
+}
+
+.add-icon {
+  font-size: 40rpx;
+  color: #ccc;
+  margin-bottom: 10rpx;
+}
+
+.add-text {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 提交按钮 */
+.submit-section {
+  margin: 0 30rpx 30rpx;
+}
+
+.btn-submit {
+  background: #ff6b9c;
+  color: #fff;
+  border: none;
+  border-radius: 12rpx;
+  padding: 28rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  width: 100%;
+}
+
+.btn-submit.disabled {
+  background: #ccc;
+  color: #999;
+}
+
+/* 联系方式 */
+.contact-title {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 25rpx;
+}
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8f8f8;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.contact-item:active {
+  background: #f0f0f0;
+}
+
+.contact-icon {
+  font-size: 32rpx;
+  margin-right: 20rpx;
+  width: 50rpx;
+  text-align: center;
+}
+
+.contact-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.contact-action {
+  font-size: 24rpx;
+  color: #ff6b9c;
+  font-weight: bold;
+  padding: 12rpx 20rpx;
+  border-radius: 16rpx;
+  background: rgba(255, 107, 156, 0.1);
+}
+
+/* 加载遮罩 */
+.loading-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loading-content {
+  background: #fff;
+  padding: 60rpx 80rpx;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 6rpx solid #f0f0f0;
+  border-top: 6rpx solid #ff6b9c;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 30rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+}
