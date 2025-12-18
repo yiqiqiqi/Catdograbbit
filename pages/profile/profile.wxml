@@ -83,6 +83,20 @@
     </view>
   </view>
 
+  <!-- 新增：积分功能区 -->
+  <view class="points-actions-grid">
+    <view class="action-card redeem" bindtap="goToRedeemCode">
+      <view class="action-icon">🎫</view>
+      <text class="action-name">兑换码</text>
+      <text class="action-desc">输入兑换码获取积分</text>
+    </view>
+    <view class="action-card lottery" bindtap="goToLuckyDraw">
+      <view class="action-icon">🎰</view>
+      <text class="action-name">积分抽奖</text>
+      <text class="action-desc">消耗{{lotteryPoints}}积分抽奖</text>
+    </view>
+  </view>
+
   <view class="settings-container">
     <view class="settings-list">
       <view class="setting-item" bindtap="updateProfile">

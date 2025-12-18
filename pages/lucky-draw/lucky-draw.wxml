@@ -1,0 +1,101 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">积分抽奖</text>
+  </view>
+
+  <!-- 积分显示卡片 -->
+  <view class="points-display">
+    <view class="points-info">
+      <text class="label">当前积分</text>
+      <text class="value">{{userPoints}}</text>
+    </view>
+    <view class="cost-info">
+      <text class="label">本次消耗</text>
+      <text class="value cost">{{costPoints}}</text>
+    </view>
+  </view>
+
+  <!-- 抽奖转盘 -->
+  <view class="lottery-wheel-container">
+    <view class="wheel-card">
+      <view class="decorative-line top"></view>
+      <view class="decorative-line bottom"></view>
+
+      <!-- 转盘主体 -->
+      <view class="wheel-wrapper">
+        <view
+          class="wheel {{isSpinning ? 'spinning' : ''}}"
+          style="transform: rotate({{rotation}}deg)"
+        >
+          <!-- 8个奖品扇区 -->
+          <view
+            class="prize-sector sector-{{index}}"
+            wx:for="{{prizes}}"
+            wx:key="id"
+            style="transform: rotate({{index * 45}}deg)"
+          >
+            <view class="prize-content">
+              <text class="prize-icon">{{item.icon}}</text>
+              <text class="prize-name">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 中心指针 -->
+        <view class="center-pointer">
+          <view class="pointer-triangle"></view>
+          <view class="pointer-circle">
+            <text class="pointer-text">GO</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 抽奖按钮 -->
+  <view
+    class="draw-btn {{userPoints < costPoints || isSpinning ? 'disabled' : ''}}"
+    bindtap="handleDraw"
+  >
+    <text class="btn-text">
+      {{isSpinning ? '抽奖中...' : userPoints < costPoints ? '积分不足' : '开始抽奖'}}
+    </text>
+  </view>
+
+  <!-- 底部链接 -->
+  <view class="bottom-links">
+    <view class="link-item" bindtap="showRules">
+      <text class="link-text">抽奖规则</text>
+    </view>
+    <view class="link-divider"></view>
+    <view class="link-item" bindtap="goToMyPrizes">
+      <text class="link-text">我的奖品</text>
+    </view>
+  </view>
+</view>
+
+<!-- 中奖弹窗 -->
+<view class="prize-modal {{showPrizeModal ? 'show' : ''}}" catchtap="closePrizeModal">
+  <view class="modal-content" catchtap="preventClose">
+    <view class="modal-card">
+      <view class="modal-icon">🎉</view>
+      <view class="modal-title">恭喜中奖！</view>
+      <view class="prize-display">
+        <text class="prize-icon-large">{{wonPrize.icon}}</text>
+        <text class="prize-name-large">{{wonPrize.name}}</text>
+      </view>
+      <view class="modal-tip">
+        <text>奖品已放入"我的奖品"</text>
+      </view>
+      <view class="modal-btns">
+        <view class="modal-btn secondary" bindtap="closePrizeModal">
+          <text>知道了</text>
+        </view>
+        <view class="modal-btn primary" bindtap="goToMyPrizes">
+          <text>查看奖品</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

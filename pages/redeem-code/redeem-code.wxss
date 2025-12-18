@@ -1,0 +1,262 @@
+/* pages/redeem-code/redeem-code.wxss */
+.container {
+  min-height: 100vh;
+  padding: 20rpx 20rpx 40rpx;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  padding: 16rpx 0 40rpx;
+}
+
+.page-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #4c1d95;
+  letter-spacing: -0.5rpx;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8rpx;
+  left: 10%;
+  width: 80%;
+  height: 3rpx;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+}
+
+/* 兑换卡片 - 缺角风格 */
+.redeem-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f9f5ff 100%);
+  margin: 10rpx 10rpx 40rpx;
+  padding: 60rpx 40rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+              0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  /* 缺角效果 */
+  clip-path: polygon(
+    0 0,
+    calc(100% - 40rpx) 0,
+    100% 40rpx,
+    100% 100%,
+    40rpx 100%,
+    0 calc(100% - 40rpx)
+  );
+}
+
+/* 左上角装饰元素 */
+.redeem-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+/* 右下角装饰元素 */
+.redeem-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(315deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+/* 内部装饰线 */
+.decorative-line {
+  position: absolute;
+  width: 60rpx;
+  height: 3rpx;
+  background: #8b5cf6;
+  z-index: 2;
+}
+
+.decorative-line.top {
+  top: 20rpx;
+  left: 20rpx;
+}
+
+.decorative-line.bottom {
+  bottom: 20rpx;
+  right: 20rpx;
+}
+
+/* 图标容器 */
+.icon-container {
+  margin-bottom: 30rpx;
+  z-index: 2;
+}
+
+.icon-text {
+  font-size: 100rpx;
+  line-height: 1;
+}
+
+/* 提示文本 */
+.tip-text {
+  font-size: 32rpx;
+  color: #4c1d95;
+  font-weight: 600;
+  margin-bottom: 40rpx;
+  z-index: 2;
+}
+
+/* 输入框容器 */
+.input-container {
+  width: 100%;
+  margin-bottom: 40rpx;
+  z-index: 2;
+}
+
+.code-input {
+  width: 100%;
+  height: 90rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2rpx solid #e0d6ff;
+  border-radius: 20rpx;
+  padding: 0 30rpx;
+  font-size: 32rpx;
+  color: #333;
+  text-align: center;
+  letter-spacing: 4rpx;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.code-input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 4rpx rgba(139, 92, 246, 0.1);
+}
+
+.placeholder {
+  color: #ccc;
+  letter-spacing: 0;
+}
+
+/* 兑换按钮 - 缺角风格 */
+.redeem-btn {
+  width: 100%;
+  height: 90rpx;
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4rpx 12rpx rgba(139, 92, 246, 0.3);
+  /* 缺角效果 */
+  clip-path: polygon(
+    0 0,
+    calc(100% - 20rpx) 0,
+    100% 20rpx,
+    100% 100%,
+    20rpx 100%,
+    0 calc(100% - 20rpx)
+  );
+}
+
+.redeem-btn:active {
+  transform: translateY(4rpx);
+  box-shadow: 0 2rpx 6rpx rgba(139, 92, 246, 0.3);
+}
+
+.redeem-btn.disabled {
+  background: #e0d6ff;
+  box-shadow: none;
+}
+
+.btn-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.redeem-btn.disabled .btn-text {
+  color: #a78bfa;
+}
+
+/* 兑换规则 */
+.rules-section {
+  width: 100%;
+  margin-top: 50rpx;
+  padding-top: 40rpx;
+  border-top: 1rpx solid rgba(139, 92, 246, 0.2);
+  z-index: 2;
+}
+
+.rules-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #4c1d95;
+  margin-bottom: 20rpx;
+}
+
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.rule-dot {
+  font-size: 28rpx;
+  color: #8b5cf6;
+  margin-right: 12rpx;
+  line-height: 1.5;
+}
+
+.rule-text {
+  font-size: 26rpx;
+  color: #7e7e8f;
+  line-height: 1.5;
+}
+
+/* 兑换记录入口 */
+.history-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx;
+  margin: 0 30rpx;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20rpx;
+  transition: all 0.3s ease;
+}
+
+.history-link:active {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.link-text {
+  font-size: 28rpx;
+  color: #8b5cf6;
+  font-weight: 500;
+  margin-right: 12rpx;
+}
+
+.link-arrow {
+  width: 16rpx;
+  height: 16rpx;
+  border-top: 2rpx solid #8b5cf6;
+  border-right: 2rpx solid #8b5cf6;
+  transform: rotate(45deg);
+}

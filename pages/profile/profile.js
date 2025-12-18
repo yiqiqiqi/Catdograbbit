@@ -88,6 +88,24 @@ Page({
     });
   },
 
+  // 新增：前往兑换码页面
+  goToRedeemCode: function () {
+    if (!this.checkLogin()) return;
+
+    wx.navigateTo({
+      url: '/pages/redeem-code/redeem-code'
+    });
+  },
+
+  // 新增：前往抽奖页面
+  goToLuckyDraw: function () {
+    if (!this.checkLogin()) return;
+
+    wx.navigateTo({
+      url: '/pages/lucky-draw/lucky-draw'
+    });
+  },
+
   // 新增：导航到每日任务
   navigateToDailyTask: function () {
     if (!this.checkLogin()) return;
