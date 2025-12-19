@@ -30,13 +30,16 @@ Page({
   // 加载用户信息（保留原有逻辑，新增等级计算）
   loadUserInfo: function () {
     let userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {};
-        userInfo = {
-            ...userInfo,
-            avatarUrl: app.globalData.domain + userInfo.avatarUrl
-        };
     const userId = app.globalData.userInfo?.userId || wx.getStorageSync('userId') || '';
     const hasUserInfo = !!(userInfo.userId);
-    const points = 50; // 获取用户积分
+
+    // 修复：从userInfo获取真实积分，而不是硬编码
+    const points = userInfo.points || 0;
+
+    // 修复：只在avatarUrl不是完整URL时才拼接domain
+    if (userInfo.avatarUrl && !userInfo.avatarUrl.startsWith('http')) {
+      userInfo.avatarUrl = app.globalData.domain + userInfo.avatarUrl;
+    }
     // 新增：等级规则配置（可根据业务需求调整）
     const levelConfig = [
       { min: 0, max: 100, level: 1 },
@@ -121,6 +124,15 @@ Page({
 
     wx.navigateTo({
       url: '/pages/points-center/points-center'
+    });
+  },
+
+  // 新增：导航到我的奖品
+  navigateToMyPrizes: function () {
+    if (!this.checkLogin()) return;
+
+    wx.navigateTo({
+      url: '/pages/my-prizes/my-prizes'
     });
   },
 

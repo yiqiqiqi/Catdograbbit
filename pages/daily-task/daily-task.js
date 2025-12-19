@@ -12,21 +12,21 @@ Page({
         id: 1,
         name: '每日签到',
         description: '每日登录应用即可领取积分',
-        points: 10,
+        points: 10,  // 保持不变，鼓励日活
         completed: true,
       },
       {
         id: 2,
         name: '分享内容',
         description: '分享任意内容到社交平台',
-        points: 30,
+        points: 20,  // 从30降到20，平衡成本
         completed: false,
       },
       {
         id: 3,
         name: '完善资料',
         description: '完善个人资料信息',
-        points: 25,
+        points: 15,  // 从25降到15，一次性任务
         completed: false,
       }
     ]
