@@ -79,13 +79,16 @@ Page({
 
   // 获取本月累计积分
   getMonthlyPoints() {
-    // 这里应该调用接口获取，暂时模拟
+    // 从 userInfo 读取月度积分，如果没有则为 0
+    const userInfo = app.getUserInfo();
+    this.setData({ monthlyPoints: userInfo.monthlyPoints || 0 });
+
+    // TODO: 后续从接口获取真实月度积分
     // get('/points/monthly').then(res => {
     //   this.setData({ monthlyPoints: res.monthlyPoints });
+    // }).catch(err => {
+    //   console.error('获取月度积分失败:', err);
     // });
-
-    // 模拟数据
-    this.setData({ monthlyPoints: 500 });
   },
 
   // 加载积分明细
@@ -110,27 +113,12 @@ Page({
       })
       .catch(err => {
         console.error('加载积分明细失败:', err);
-        this.setData({ loading: false });
-
-        // 加载失败时显示模拟数据
-        this.loadMockHistory();
+        this.setData({
+          loading: false,
+          historyList: [], // 失败时显示空列表，不显示模拟数据
+          hasMore: false
+        });
       });
-  },
-
-  // 加载模拟数据
-  loadMockHistory() {
-    const mockData = [
-      { id: 1, type: 'income', amount: 50, reason: '兑换码', time: '2小时前', icon: '🎫' },
-      { id: 2, type: 'expense', amount: 100, reason: '兑换抽奖券', time: '5小时前', icon: '🎰' },
-      { id: 3, type: 'income', amount: 10, reason: '每日签到', time: '今天', icon: '📅' },
-      { id: 4, type: 'income', amount: 30, reason: '抽奖获得', time: '昨天', icon: '🎁' },
-      { id: 5, type: 'expense', amount: 1000, reason: '兑换免单券', time: '2天前', icon: '🎁' }
-    ];
-
-    this.setData({
-      historyList: mockData,
-      loading: false
-    });
   },
 
   // 获取历史记录图标
