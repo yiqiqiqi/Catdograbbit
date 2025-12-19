@@ -34,7 +34,8 @@
           <view class="add-pet-card" bindtap="gotoAddPet">
             <view class="add-pet-content">
               <view class="add-icon-container">
-                <image src="/images/add.png" class="add-icon" mode="aspectFill"></image>
+                <!-- 使用CSS绘制的"+"号，替代图片 -->
+                <view class="add-icon-plus"></view>
               </view>
               <text class="add-text">添加</text>
             </view>

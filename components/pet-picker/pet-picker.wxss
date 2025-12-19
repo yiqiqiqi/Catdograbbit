@@ -201,6 +201,36 @@
   height: 50rpx;
 }
 
+/* 用CSS绘制的"+"号，替代图片 */
+.add-icon-plus {
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+}
+
+.add-icon-plus::before,
+.add-icon-plus::after {
+  content: '';
+  position: absolute;
+  background-color: #9370DB;
+}
+
+.add-icon-plus::before {
+  width: 4rpx;
+  height: 50rpx;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.add-icon-plus::after {
+  width: 50rpx;
+  height: 4rpx;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .add-text {
   font-size: 22rpx;
   color: #999;
