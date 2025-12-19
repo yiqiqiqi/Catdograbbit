@@ -1,9 +1,11 @@
 // pages/daily-task/daily-task.js
+const app = getApp();
+
 Page({
   data: {
-    userPoints: 1250, // 用户当前积分
-    todayPoints: 80,  // 今日获得积分
-    completedTasksCount: 1, // 已完成任务数量
+    userPoints: 0,    // 用户当前积分（从globalData读取）
+    todayPoints: 0,   // 今日获得积分
+    completedTasksCount: 0, // 已完成任务数量
     totalTasksCount: 3,     // 总任务数量
     showToast: false,       // 是否显示提示
     toastMessage: '',       // 提示消息内容
@@ -13,7 +15,7 @@ Page({
         name: '每日签到',
         description: '每日登录应用即可领取积分',
         points: 10,  // 保持不变，鼓励日活
-        completed: true,
+        completed: false,
       },
       {
         id: 2,
@@ -33,13 +35,41 @@ Page({
   },
 
   onLoad: function(options) {
-    // 从全局数据或缓存中获取用户任务状态
+    // 从全局数据获取用户积分
+    this.loadUserData();
+
+    // 从缓存或服务器获取任务状态
     this.loadTaskProgress();
+
+    // 监听积分变化事件
+    app.on('pointsChange', this.handlePointsChange.bind(this));
   },
 
   onShow: function() {
-    // 页面显示时刷新任务状态
+    // 页面显示时刷新数据
+    this.loadUserData();
     this.refreshTaskStatus();
+  },
+
+  onUnload: function() {
+    // 页面卸载时移除事件监听
+    app.off('pointsChange', this.handlePointsChange);
+  },
+
+  // 新增：加载用户数据
+  loadUserData: function() {
+    const userInfo = app.getUserInfo();
+    this.setData({
+      userPoints: userInfo.points || 0
+    });
+  },
+
+  // 新增：处理积分变化事件
+  handlePointsChange: function(data) {
+    console.log('任务页面收到积分变化通知:', data);
+    this.setData({
+      userPoints: data.newPoints
+    });
   },
 
   // 加载任务进度
@@ -89,40 +119,51 @@ Page({
     const taskId = e.currentTarget.dataset.taskid;
     const taskList = this.data.taskList;
     const taskIndex = taskList.findIndex(task => task.id === taskId);
-    
+
     if (taskIndex === -1) return;
-    
+
     const task = taskList[taskIndex];
-    
+
     // 如果任务已完成，则不能取消完成
     if (task.completed) {
       this.showToast('任务已完成，明日可再次参与');
       return;
     }
-    
+
     // 标记任务为已完成
     taskList[taskIndex].completed = true;
-    
-    // 更新数据
+
+    // 更新本地任务状态
     const completedTasksCount = this.data.completedTasksCount + 1;
     const todayPoints = this.data.todayPoints + task.points;
-    const userPoints = this.data.userPoints + task.points;
-    
+
     this.setData({
       taskList: taskList,
       completedTasksCount: completedTasksCount,
-      todayPoints: todayPoints,
-      userPoints: userPoints
+      todayPoints: todayPoints
     });
-    
-    // 显示完成提示
-    this.showToast(`任务完成！获得${task.points}积分`);
-    
-    // 保存进度
-    this.saveTaskProgress();
-    
-    // 这里可以添加向服务器提交任务完成的逻辑
-    // this.submitTaskCompletion(taskId);
+
+    // 关键修改：使用统一的积分更新方法
+    app.updatePoints(task.points, `完成任务：${task.name}`)
+      .then(newPoints => {
+        console.log(`任务完成，积分已更新为: ${newPoints}`);
+
+        // 显示完成提示
+        this.showToast(`任务完成！获得${task.points}积分`);
+
+        // 更新本地显示（事件监听器也会更新，但这里确保立即显示）
+        this.setData({
+          userPoints: newPoints
+        });
+
+        // 保存任务进度到本地
+        this.saveTaskProgress();
+      })
+      .catch(err => {
+        console.error('积分更新失败:', err);
+        // 即使失败也显示提示，因为本地已更新
+        this.showToast(`任务完成！获得${task.points}积分`);
+      });
   },
 
   // 显示提示消息

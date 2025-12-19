@@ -1,6 +1,7 @@
 // pages/points-center/points-center.js
 const { get, post } = require('../../utils/request');
 const { relativeTime } = require('../../utils/util');
+const { getLevelInfo } = require('../../utils/points');
 const app = getApp();
 
 Page({
@@ -26,6 +27,10 @@ Page({
   onLoad(options) {
     this.loadUserData();
     this.loadPointsHistory();
+
+    // 监听积分和抽奖券变化事件
+    app.on('pointsChange', this.handlePointsChange.bind(this));
+    app.on('ticketsChange', this.handleTicketsChange.bind(this));
   },
 
   onShow() {
@@ -33,34 +38,43 @@ Page({
     this.loadUserData();
   },
 
+  onUnload() {
+    // 页面卸载时移除事件监听
+    app.off('pointsChange', this.handlePointsChange);
+    app.off('ticketsChange', this.handleTicketsChange);
+  },
+
+  // 新增：处理积分变化事件
+  handlePointsChange(data) {
+    console.log('积分中心收到积分变化通知:', data);
+    this.setData({
+      userPoints: data.newPoints,
+      userLevel: getLevelInfo(data.newPoints).level
+    });
+  },
+
+  // 新增：处理抽奖券变化事件
+  handleTicketsChange(data) {
+    console.log('积分中心收到抽奖券变化通知:', data);
+    this.setData({
+      lotteryTickets: data.newTickets
+    });
+  },
+
   // 加载用户数据
   loadUserData() {
-    const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {};
+    const userInfo = app.getUserInfo();
+    const levelInfo = getLevelInfo(userInfo.points);
 
     // 设置用户积分和等级
     this.setData({
-      userPoints: userInfo.points || 0,
-      userLevel: this.calculateLevel(userInfo.points || 0),
-      lotteryTickets: userInfo.lotteryTickets || 0
+      userPoints: userInfo.points,
+      userLevel: levelInfo.level,
+      lotteryTickets: userInfo.lotteryTickets
     });
 
     // 获取本月累计积分（从接口获取，这里先模拟）
     this.getMonthlyPoints();
-  },
-
-  // 计算等级
-  calculateLevel(points) {
-    const levelConfig = [
-      { min: 0, max: 100, level: 1 },
-      { min: 100, max: 300, level: 2 },
-      { min: 300, max: 600, level: 3 },
-      { min: 600, max: 1000, level: 4 },
-      { min: 1000, max: 2000, level: 5 },
-      { min: 2000, max: Infinity, level: 6 }
-    ];
-
-    const config = levelConfig.find(c => points >= c.min && points < c.max);
-    return config ? config.level : 1;
   },
 
   // 获取本月累计积分
@@ -181,28 +195,15 @@ Page({
   doExchange(product) {
     wx.showLoading({ title: '兑换中...', mask: true });
 
-    post('/exchange/redeem', { productId: product.id })
-      .then(res => {
-        wx.hideLoading();
-
-        // 更新本地数据
-        const newPoints = res.remainPoints || (this.data.userPoints - product.pointsCost);
-        const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {};
-        userInfo.points = newPoints;
-
+    // 使用统一的积分更新方法
+    app.updatePoints(-product.pointsCost, `兑换${product.name}`, true)
+      .then(newPoints => {
         // 如果兑换的是抽奖券，更新抽奖券数量
         if (product.type === 'ticket') {
-          userInfo.lotteryTickets = (userInfo.lotteryTickets || 0) + product.count;
-          this.setData({ lotteryTickets: userInfo.lotteryTickets });
+          app.updateLotteryTickets(product.count, `兑换${product.name}`);
         }
 
-        app.globalData.userInfo = userInfo;
-        wx.setStorageSync('userInfo', userInfo);
-
-        this.setData({
-          userPoints: newPoints,
-          userLevel: this.calculateLevel(newPoints)
-        });
+        wx.hideLoading();
 
         // 刷新明细
         this.setData({ page: 1 });

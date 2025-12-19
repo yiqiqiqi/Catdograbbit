@@ -328,5 +328,163 @@ App({
         }
       });
     });
+  },
+
+  // ===================== 积分系统统一管理 =====================
+
+  /**
+   * 事件监听器存储
+   */
+  eventListeners: {},
+
+  /**
+   * 注册事件监听
+   * @param {string} event - 事件名称
+   * @param {function} callback - 回调函数
+   */
+  on: function(event, callback) {
+    if (!this.eventListeners[event]) {
+      this.eventListeners[event] = [];
+    }
+    this.eventListeners[event].push(callback);
+  },
+
+  /**
+   * 移除事件监听
+   * @param {string} event - 事件名称
+   * @param {function} callback - 回调函数
+   */
+  off: function(event, callback) {
+    if (!this.eventListeners[event]) return;
+
+    if (callback) {
+      // 移除特定回调
+      this.eventListeners[event] = this.eventListeners[event].filter(cb => cb !== callback);
+    } else {
+      // 移除所有回调
+      delete this.eventListeners[event];
+    }
+  },
+
+  /**
+   * 触发事件
+   * @param {string} event - 事件名称
+   * @param {*} data - 事件数据
+   */
+  emit: function(event, data) {
+    const listeners = this.eventListeners[event] || [];
+    listeners.forEach(callback => {
+      try {
+        callback(data);
+      } catch (e) {
+        console.error(`事件 ${event} 的监听器执行错误:`, e);
+      }
+    });
+  },
+
+  /**
+   * 统一积分更新方法
+   * @param {number} delta - 积分变化量（正数增加，负数减少）
+   * @param {string} reason - 变化原因
+   * @param {boolean} syncToServer - 是否同步到服务器（默认true）
+   * @returns {Promise}
+   */
+  updatePoints: function(delta, reason, syncToServer = true) {
+    const that = this;
+
+    return new Promise((resolve, reject) => {
+      // 获取当前用户信息
+      let userInfo = that.globalData.userInfo || wx.getStorageSync('userInfo') || {};
+
+      // 更新积分
+      const oldPoints = userInfo.points || 0;
+      const newPoints = Math.max(0, oldPoints + delta); // 积分不能为负数
+      userInfo.points = newPoints;
+
+      // 同步到全局数据和本地存储
+      that.globalData.userInfo = userInfo;
+      wx.setStorageSync('userInfo', userInfo);
+
+      console.log(`积分更新: ${oldPoints} → ${newPoints} (${delta >= 0 ? '+' : ''}${delta}) 原因: ${reason}`);
+
+      // 触发积分变化事件
+      that.emit('pointsChange', {
+        oldPoints,
+        newPoints,
+        delta,
+        reason
+      });
+
+      // 同步到服务器（如果需要）
+      if (syncToServer) {
+        that.request({
+          url: '/points/update',
+          method: 'POST',
+          data: { delta, reason }
+        })
+        .then(res => {
+          console.log('积分同步到服务器成功');
+          resolve(newPoints);
+        })
+        .catch(err => {
+          console.error('积分同步到服务器失败:', err);
+          // 即使服务器同步失败，本地更新仍然有效
+          resolve(newPoints);
+        });
+      } else {
+        resolve(newPoints);
+      }
+    });
+  },
+
+  /**
+   * 统一抽奖券更新方法
+   * @param {number} delta - 抽奖券变化量
+   * @param {string} reason - 变化原因
+   * @returns {number} - 新的抽奖券数量
+   */
+  updateLotteryTickets: function(delta, reason) {
+    let userInfo = this.globalData.userInfo || wx.getStorageSync('userInfo') || {};
+
+    const oldTickets = userInfo.lotteryTickets || 0;
+    const newTickets = Math.max(0, oldTickets + delta);
+    userInfo.lotteryTickets = newTickets;
+
+    // 同步到全局数据和本地存储
+    this.globalData.userInfo = userInfo;
+    wx.setStorageSync('userInfo', userInfo);
+
+    console.log(`抽奖券更新: ${oldTickets} → ${newTickets} (${delta >= 0 ? '+' : ''}${delta}) 原因: ${reason}`);
+
+    // 触发抽奖券变化事件
+    this.emit('ticketsChange', {
+      oldTickets,
+      newTickets,
+      delta,
+      reason
+    });
+
+    return newTickets;
+  },
+
+  /**
+   * 获取用户完整信息（带默认值）
+   * @returns {object} - 用户信息对象
+   */
+  getUserInfo: function() {
+    const userInfo = this.globalData.userInfo || wx.getStorageSync('userInfo') || {};
+
+    // 确保必要字段存在
+    return {
+      userId: userInfo.userId || '',
+      nickName: userInfo.nickName || '未设置昵称',
+      avatarUrl: userInfo.avatarUrl || '/images/avatar-default.png',
+      points: userInfo.points || 0,
+      lotteryTickets: userInfo.lotteryTickets || 0,
+      level: userInfo.level || 1,
+      monthlyPoints: userInfo.monthlyPoints || 0,
+      todayPoints: userInfo.todayPoints || 0,
+      ...userInfo // 保留其他字段
+    };
   }
 });
