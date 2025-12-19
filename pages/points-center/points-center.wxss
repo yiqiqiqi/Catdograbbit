@@ -1,0 +1,422 @@
+/* pages/points-center/points-center.wxss */
+.container {
+  min-height: 100vh;
+  padding: 20rpx 20rpx 40rpx;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  padding: 16rpx 0 30rpx;
+}
+
+.page-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #4c1d95;
+  letter-spacing: -0.5rpx;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8rpx;
+  left: 10%;
+  width: 80%;
+  height: 3rpx;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+}
+
+/* 积分总览卡片 */
+.points-overview-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f9f5ff 100%);
+  margin: 10rpx 10rpx 40rpx;
+  padding: 50rpx 40rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08),
+              0 4rpx 8rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: visible;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 40rpx) 0,
+    100% 40rpx,
+    100% 100%,
+    40rpx 100%,
+    0 calc(100% - 40rpx)
+  );
+}
+
+.points-overview-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+.points-overview-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(315deg, transparent 50%, #8b5cf6 50%);
+  z-index: 1;
+}
+
+.decorative-line {
+  position: absolute;
+  width: 60rpx;
+  height: 3rpx;
+  background: #8b5cf6;
+  z-index: 2;
+}
+
+.decorative-line.top {
+  top: 20rpx;
+  left: 20rpx;
+}
+
+.decorative-line.bottom {
+  bottom: 20rpx;
+  right: 20rpx;
+}
+
+.overview-content {
+  position: relative;
+  z-index: 2;
+}
+
+.main-points {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.points-label {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.points-value {
+  display: block;
+  font-size: 68rpx;
+  font-weight: 700;
+  color: #8b5cf6;
+  line-height: 1;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 30rpx;
+  border-top: 1rpx solid rgba(139, 92, 246, 0.2);
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.stat-value {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-value.highlight {
+  color: #ff6b6b;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 60rpx;
+  background: #e0e0e0;
+}
+
+/* 分区标题 */
+.section {
+  margin-bottom: 40rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20rpx 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  position: relative;
+  padding-left: 16rpx;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 24rpx;
+  background: #8b5cf6;
+  border-radius: 3rpx;
+}
+
+/* 兑换网格 */
+.exchange-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 0 10rpx;
+}
+
+.exchange-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f9f5ff 100%);
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  position: relative;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.exchange-card:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 1rpx 2rpx rgba(0, 0, 0, 0.08);
+}
+
+.exchange-card.hot {
+  border: 2rpx solid #ff6b6b;
+}
+
+.hot-badge {
+  position: absolute;
+  top: -10rpx;
+  right: 30rpx;
+  background: linear-gradient(135deg, #ff8787, #ff6b6b);
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: 600;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 107, 0.4);
+}
+
+.exchange-icon-wrapper {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.exchange-icon-wrapper.free {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+}
+
+.exchange-icon-wrapper.ticket {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+}
+
+.exchange-icon-wrapper.ticket-pack {
+  background: linear-gradient(135deg, #ff8787, #ff6b6b);
+}
+
+.exchange-icon {
+  font-size: 56rpx;
+}
+
+.exchange-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.exchange-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.exchange-price {
+  font-size: 26rpx;
+  color: #8b5cf6;
+  font-weight: 600;
+}
+
+.price-group {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.exchange-price-old {
+  font-size: 24rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.exchange-btn {
+  min-width: 120rpx;
+  height: 60rpx;
+  background: linear-gradient(135deg, #e0d6ff, #d0c4ff);
+  color: #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.exchange-btn.primary {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  color: #fff;
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.3);
+}
+
+.exchange-btn:active {
+  transform: scale(0.95);
+}
+
+/* 筛选标签 */
+.filter-tabs {
+  display: flex;
+  gap: 16rpx;
+}
+
+.filter-tab {
+  font-size: 26rpx;
+  color: #999;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  background: #f5f5f5;
+  transition: all 0.3s ease;
+}
+
+.filter-tab.active {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  color: #fff;
+}
+
+/* 明细列表 */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  padding: 0 10rpx;
+}
+
+.history-item {
+  background: #fff;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+}
+
+.history-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  flex-shrink: 0;
+}
+
+.history-icon.income {
+  background: linear-gradient(135deg, #d4fc79, #96e6a1);
+}
+
+.history-icon.expense {
+  background: linear-gradient(135deg, #ffd89b, #ff9a9e);
+}
+
+.history-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.history-reason {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+}
+
+.history-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.history-amount {
+  font-size: 32rpx;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.history-amount.income {
+  color: #52c41a;
+}
+
+.history-amount.expense {
+  color: #ff6b6b;
+}
+
+/* 空状态 */
+.empty-state {
+  padding: 100rpx 0;
+  text-align: center;
+}
+
+.empty-icon {
+  display: block;
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 加载状态 */
+.loading-state {
+  padding: 60rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #999;
+}

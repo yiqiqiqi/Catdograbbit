@@ -13,7 +13,8 @@
     "pages/publish-moment/publish-moment",
     "pages/redeem-code/redeem-code",
     "pages/lucky-draw/lucky-draw",
-    "pages/my-prizes/my-prizes"
+    "pages/my-prizes/my-prizes",
+    "pages/points-center/points-center"
   ],
   "window": {
     "backgroundTextStyle": "light",

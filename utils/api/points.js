@@ -17,10 +17,25 @@ const getUserPoints = () => {
 };
 
 /**
- * 积分抽奖
+ * 积分抽奖（使用抽奖券）
  */
 const drawLottery = () => {
   return post('/lottery/draw', {});
+};
+
+/**
+ * 兑换商品
+ * @param {number} productId - 商品ID
+ */
+const exchangeProduct = (productId) => {
+  return post('/exchange/redeem', { productId });
+};
+
+/**
+ * 获取兑换商品列表
+ */
+const getExchangeProducts = () => {
+  return get('/exchange/products');
 };
 
 /**
@@ -73,5 +88,7 @@ module.exports = {
   getMyPrizes,
   usePrize,
   getRedeemHistory,
-  getPointsHistory
+  getPointsHistory,
+  exchangeProduct,
+  getExchangeProducts
 };

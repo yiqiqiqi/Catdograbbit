@@ -1,0 +1,146 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">积分中心</text>
+  </view>
+
+  <!-- 积分总览卡片 -->
+  <view class="points-overview-card">
+    <view class="decorative-line top"></view>
+    <view class="decorative-line bottom"></view>
+
+    <view class="overview-content">
+      <view class="main-points">
+        <text class="points-label">当前积分</text>
+        <text class="points-value">{{userPoints}}</text>
+      </view>
+
+      <view class="stats-row">
+        <view class="stat-item">
+          <text class="stat-label">等级</text>
+          <text class="stat-value">Lv.{{userLevel}}</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-label">本月累计</text>
+          <text class="stat-value">{{monthlyPoints}}</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-label">抽奖券</text>
+          <text class="stat-value highlight">{{lotteryTickets}}张</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷兑换区 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">快捷兑换</text>
+    </view>
+
+    <view class="exchange-grid">
+      <!-- 猫砂免单券 -->
+      <view class="exchange-card" bindtap="handleExchange" data-id="1">
+        <view class="exchange-icon-wrapper free">
+          <text class="exchange-icon">🎁</text>
+        </view>
+        <view class="exchange-info">
+          <text class="exchange-name">猫砂免单券</text>
+          <text class="exchange-price">1000积分</text>
+        </view>
+        <view class="exchange-btn">
+          <text>兑换</text>
+        </view>
+      </view>
+
+      <!-- 抽奖券×1 -->
+      <view class="exchange-card" bindtap="handleExchange" data-id="2">
+        <view class="exchange-icon-wrapper ticket">
+          <text class="exchange-icon">🎫</text>
+        </view>
+        <view class="exchange-info">
+          <text class="exchange-name">抽奖券×1</text>
+          <text class="exchange-price">100积分</text>
+        </view>
+        <view class="exchange-btn">
+          <text>兑换</text>
+        </view>
+      </view>
+
+      <!-- 抽奖券×10 -->
+      <view class="exchange-card hot" bindtap="handleExchange" data-id="3">
+        <view class="hot-badge">9折</view>
+        <view class="exchange-icon-wrapper ticket-pack">
+          <text class="exchange-icon">🎟️</text>
+        </view>
+        <view class="exchange-info">
+          <text class="exchange-name">抽奖券×10</text>
+          <view class="price-group">
+            <text class="exchange-price-old">1000</text>
+            <text class="exchange-price">900积分</text>
+          </view>
+        </view>
+        <view class="exchange-btn primary">
+          <text>兑换</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分明细 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">积分明细</text>
+      <view class="filter-tabs">
+        <text
+          class="filter-tab {{filterType === 'all' ? 'active' : ''}}"
+          bindtap="switchFilter"
+          data-type="all"
+        >全部</text>
+        <text
+          class="filter-tab {{filterType === 'income' ? 'active' : ''}}"
+          bindtap="switchFilter"
+          data-type="income"
+        >收入</text>
+        <text
+          class="filter-tab {{filterType === 'expense' ? 'active' : ''}}"
+          bindtap="switchFilter"
+          data-type="expense"
+        >支出</text>
+      </view>
+    </view>
+
+    <!-- 明细列表 -->
+    <view class="history-list" wx:if="{{historyList.length > 0}}">
+      <view
+        class="history-item"
+        wx:for="{{historyList}}"
+        wx:key="id"
+      >
+        <view class="history-icon {{item.type}}">
+          <text>{{item.icon}}</text>
+        </view>
+        <view class="history-info">
+          <text class="history-reason">{{item.reason}}</text>
+          <text class="history-time">{{item.time}}</text>
+        </view>
+        <view class="history-amount {{item.type}}">
+          <text>{{item.type === 'income' ? '+' : '-'}}{{item.amount}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{historyList.length === 0 && !loading}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无积分记录</text>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-state" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+  </view>
+</view>

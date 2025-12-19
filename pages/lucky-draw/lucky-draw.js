@@ -4,22 +4,21 @@ const app = getApp();
 
 Page({
   data: {
-    userPoints: 0,
-    costPoints: 100, // 每次抽奖消耗积分
+    lotteryTickets: 0, // 抽奖券数量
     isSpinning: false,
     rotation: 0,
     showPrizeModal: false,
     wonPrize: {},
-    // 8个奖品（后端返回，这里是默认配置）
+    // 8个奖品（基于消费者心理学优化的配置）
     prizes: [
-      { id: 1, name: '猫砂免单', icon: '🎁', probability: 0.01 },
-      { id: 2, name: '谢谢参与', icon: '💝', probability: 0.5 },
-      { id: 3, name: '宠物机器人', icon: '🤖', probability: 0.005 },
-      { id: 4, name: '10元优惠券', icon: '🎫', probability: 0.2 },
-      { id: 5, name: '50积分', icon: '⭐', probability: 0.15 },
-      { id: 6, name: '谢谢参与', icon: '💝', probability: 0.1 },
-      { id: 7, name: '20元优惠券', icon: '🎟️', probability: 0.03 },
-      { id: 8, name: '5元优惠券', icon: '🏷️', probability: 0.005 }
+      { id: 1, name: '猫砂免单券', icon: '🎁', probability: 0.01 },
+      { id: 2, name: '20积分', icon: '💝', probability: 0.20 },
+      { id: 3, name: '宠物机器人', icon: '🤖', probability: 0.0001 },
+      { id: 4, name: '猫砂8折券', icon: '🎫', probability: 0.18 },
+      { id: 5, name: '50积分', icon: '⭐', probability: 0.20 },
+      { id: 6, name: '30积分', icon: '💎', probability: 0.30 },
+      { id: 7, name: '猫砂7折券', icon: '🏷️', probability: 0.08 },
+      { id: 8, name: '猫砂半价券', icon: '🎟️', probability: 0.03 }
     ]
   },
 
@@ -28,36 +27,37 @@ Page({
   },
 
   onShow() {
-    // 页面显示时刷新积分
+    // 页面显示时刷新抽奖券数量
     this.loadUserPoints();
   },
 
-  // 加载用户积分
+  // 加载用户抽奖券数量
   loadUserPoints() {
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {};
     this.setData({
-      userPoints: userInfo.points || 0
+      lotteryTickets: userInfo.lotteryTickets || 0
     });
   },
 
   // 开始抽奖
   handleDraw() {
-    const { userPoints, costPoints, isSpinning } = this.data;
+    const { lotteryTickets, isSpinning } = this.data;
 
     // 防止重复点击
     if (isSpinning) return;
 
-    // 检查积分
-    if (userPoints < costPoints) {
+    // 检查抽奖券
+    if (lotteryTickets < 1) {
       wx.showModal({
-        title: '积分不足',
-        content: '您的积分不足，快去完成任务或兑换积分吧！',
+        title: '抽奖券不足',
+        content: '您还没有抽奖券，快去积分中心兑换吧！',
         showCancel: true,
         confirmText: '去兑换',
+        cancelText: '取消',
         success: (res) => {
           if (res.confirm) {
             wx.navigateTo({
-              url: '/pages/redeem-code/redeem-code'
+              url: '/pages/points-center/points-center'
             });
           }
         }
@@ -76,20 +76,20 @@ Page({
         wx.hideLoading();
 
         // 获取中奖信息
-        const { prizeId, prizeName, prizeIcon, remainPoints } = res;
+        const { prizeId, prizeName, prizeIcon, remainTickets } = res;
 
         // 找到中奖的奖品索引
         const prizeIndex = this.data.prizes.findIndex(p => p.id === prizeId);
         const targetIndex = prizeIndex !== -1 ? prizeIndex : 0;
 
-        // 计算转盘旋转角度（转3圈 + 目标角度）
+        // 计算转盘旋转角度（转5圈 + 目标角度）
         const baseRotation = 360 * 5; // 先转5圈
         const targetAngle = 360 - (targetIndex * 45) - 22.5; // 指向目标扇区中心
         const finalRotation = baseRotation + targetAngle;
 
-        // 更新积分
+        // 更新抽奖券和积分
         this.setData({
-          userPoints: remainPoints,
+          lotteryTickets: remainTickets !== undefined ? remainTickets : (this.data.lotteryTickets - 1),
           rotation: finalRotation,
           wonPrize: {
             id: prizeId,
@@ -98,9 +98,19 @@ Page({
           }
         });
 
-        // 更新全局积分
+        // 更新全局数据
         const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {};
-        userInfo.points = remainPoints;
+        userInfo.lotteryTickets = remainTickets !== undefined ? remainTickets : (userInfo.lotteryTickets - 1);
+
+        // 如果中奖是积分，更新积分数
+        if (prizeName.includes('积分')) {
+          const pointsMatch = prizeName.match(/\d+/);
+          if (pointsMatch) {
+            const points = parseInt(pointsMatch[0]);
+            userInfo.points = (userInfo.points || 0) + points;
+          }
+        }
+
         app.globalData.userInfo = userInfo;
         wx.setStorageSync('userInfo', userInfo);
 
@@ -122,8 +132,8 @@ Page({
         const errorMsg = err.message || '抽奖失败';
         let content = errorMsg;
 
-        if (errorMsg.includes('积分不足')) {
-          content = '积分不足，请先兑换积分';
+        if (errorMsg.includes('抽奖券') || errorMsg.includes('券不足')) {
+          content = '抽奖券不足，请先兑换抽奖券';
         } else if (errorMsg.includes('次数')) {
           content = '今日抽奖次数已达上限';
         }
@@ -157,7 +167,7 @@ Page({
   showRules() {
     wx.showModal({
       title: '抽奖规则',
-      content: '1. 每次抽奖消耗100积分\n2. 每日最多可抽奖10次\n3. 中奖后奖品将存入"我的奖品"\n4. 奖品有效期30天，请及时使用',
+      content: '1. 每次抽奖消耗1张抽奖券\n2. 抽奖券可在积分中心兑换\n3. 中奖后奖品将存入"我的奖品"\n4. 优惠券有效期30天，请及时使用\n5. 宠物机器人为展示奖品',
       showCancel: false,
       confirmText: '知道了'
     });
