@@ -4,15 +4,15 @@
     <text class="page-title">积分抽奖</text>
   </view>
 
-  <!-- 积分显示卡片 -->
+  <!-- 抽奖券显示卡片 -->
   <view class="points-display">
     <view class="points-info">
-      <text class="label">当前积分</text>
-      <text class="value">{{userPoints}}</text>
+      <text class="label">当前抽奖券</text>
+      <text class="value">{{lotteryTickets}}张</text>
     </view>
     <view class="cost-info">
       <text class="label">本次消耗</text>
-      <text class="value cost">{{costPoints}}</text>
+      <text class="value cost">1张</text>
     </view>
   </view>
 
@@ -55,11 +55,11 @@
 
   <!-- 抽奖按钮 -->
   <view
-    class="draw-btn {{userPoints < costPoints || isSpinning ? 'disabled' : ''}}"
+    class="draw-btn {{lotteryTickets < 1 || isSpinning ? 'disabled' : ''}}"
     bindtap="handleDraw"
   >
     <text class="btn-text">
-      {{isSpinning ? '抽奖中...' : userPoints < costPoints ? '积分不足' : '开始抽奖'}}
+      {{isSpinning ? '抽奖中...' : lotteryTickets < 1 ? '抽奖券不足' : '开始抽奖'}}
     </text>
   </view>
 
