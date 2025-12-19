@@ -1,4 +1,5 @@
 const app = getApp();
+const { getLevelInfo } = require('../../utils/points');
 
 Page({
   data: {
@@ -18,6 +19,10 @@ Page({
     this.loadUserInfo();
     // 检查未完成任务（实际项目中从接口获取，这里默认true）
     this.checkUnfinishedTask();
+
+    // 监听积分和抽奖券变化事件
+    app.on('pointsChange', this.handlePointsChange.bind(this));
+    app.on('ticketsChange', this.handleTicketsChange.bind(this));
   },
 
   onShow: function () {
@@ -27,44 +32,50 @@ Page({
     this.checkUnfinishedTask();
   },
 
+  onUnload: function () {
+    // 页面卸载时移除事件监听
+    app.off('pointsChange', this.handlePointsChange);
+    app.off('ticketsChange', this.handleTicketsChange);
+  },
+
+  // 新增：处理积分变化事件
+  handlePointsChange: function(data) {
+    console.log('个人页面收到积分变化通知:', data);
+    this.loadUserInfo(); // 重新加载完整信息（包括等级计算）
+  },
+
+  // 新增：处理抽奖券变化事件
+  handleTicketsChange: function(data) {
+    console.log('个人页面收到抽奖券变化通知:', data);
+    this.loadUserInfo(); // 重新加载完整信息
+  },
+
   // 加载用户信息（保留原有逻辑，新增等级计算）
   loadUserInfo: function () {
-    let userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo') || {};
-    const userId = app.globalData.userInfo?.userId || wx.getStorageSync('userId') || '';
+    // 使用统一方法获取用户信息
+    let userInfo = app.getUserInfo();
+    const userId = userInfo.userId || '';
     const hasUserInfo = !!(userInfo.userId);
-
-    // 修复：从userInfo获取真实积分，而不是硬编码
-    const points = userInfo.points || 0;
 
     // 修复：只在avatarUrl不是完整URL时才拼接domain
     if (userInfo.avatarUrl && !userInfo.avatarUrl.startsWith('http')) {
       userInfo.avatarUrl = app.globalData.domain + userInfo.avatarUrl;
     }
-    // 新增：等级规则配置（可根据业务需求调整）
-    const levelConfig = [
-      { min: 0, max: 100, level: 1 },
-      { min: 100, max: 300, level: 2 },
-      { min: 300, max: 600, level: 3 },
-      { min: 600, max: 1000, level: 4 },
-      { min: 1000, max: 2000, level: 5 },
-      { min: 2000, max: Infinity, level: 6 } // 最高等级（无上限）
-    ];
-    const currentConfig = levelConfig.filter(c => points >= c.min).at(-1) || levelConfig[0];
-    const { level: currentLevel, min: currentMin, max: currentMax } = currentConfig;
-    const progress = currentMax === Infinity ? 100 : Math.min(100, Math.round(((points - currentMin) / (currentMax - currentMin)) * 100));
-    const progressStep = Math.round(progress / 10) * 10;
-    const needPoints = currentMax === Infinity ? 0 : currentMax - points;
+
+    // 使用公共工具计算等级信息
+    const levelInfo = getLevelInfo(userInfo.points);
+
     // 保留原有更新逻辑，追加等级相关字段
     this.setData({
       userInfo: userInfo,
       userId: userId,
       hasUserInfo: hasUserInfo,
       // 新增：等级相关数据
-      userLevel: currentLevel,
-      progressStep: progressStep,
-      currentLevelMin: currentMin,
-      currentLevelMax: currentMax === Infinity ? '∞' : currentMax,
-      needPoints: needPoints // 新增：升级所需积分
+      userLevel: levelInfo.level,
+      progressStep: levelInfo.progressStep,
+      currentLevelMin: levelInfo.min,
+      currentLevelMax: levelInfo.max,
+      needPoints: levelInfo.needPoints
     });
   },
 
