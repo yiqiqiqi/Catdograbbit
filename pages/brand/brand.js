@@ -2,19 +2,19 @@ const app = getApp()
 
 Page({
   data: {
-    // 轮播图数据
+    // 轮播图数据（暂时使用占位图）
     banners: [
       {
         id: 1,
-        imageUrl: '/images/brand-banner-1.jpg'
+        imageUrl: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="750" height="400"%3E%3Crect fill="%238b5cf6" width="750" height="400"/%3E%3Ctext fill="white" x="50%25" y="50%25" text-anchor="middle" font-size="40" dy=".3em"%3E喵汪兔品牌轮播图1%3C/text%3E%3C/svg%3E'
       },
       {
         id: 2,
-        imageUrl: '/images/brand-banner-2.jpg'
+        imageUrl: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="750" height="400"%3E%3Crect fill="%23667eea" width="750" height="400"/%3E%3Ctext fill="white" x="50%25" y="50%25" text-anchor="middle" font-size="40" dy=".3em"%3E喵汪兔品牌轮播图2%3C/text%3E%3C/svg%3E'
       },
       {
         id: 3,
-        imageUrl: '/images/brand-banner-3.jpg'
+        imageUrl: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="750" height="400"%3E%3Crect fill="%23764ba2" width="750" height="400"/%3E%3Ctext fill="white" x="50%25" y="50%25" text-anchor="middle" font-size="40" dy=".3em"%3E喵汪兔品牌轮播图3%3C/text%3E%3C/svg%3E'
       }
     ],
 
@@ -50,7 +50,7 @@ Page({
     currentActivity: {
       id: 1,
       title: '新年福利活动 - 晒照赢好礼',
-      coverImage: '/images/activity-cover.jpg',
+      coverImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="690" height="300"%3E%3Crect fill="%23f5f3ff" width="690" height="300"/%3E%3Ctext fill="%238b5cf6" x="50%25" y="50%25" text-anchor="middle" font-size="32" dy=".3em"%3E🎁 活动封面占位图%3C/text%3E%3C/svg%3E',
       startTime: '2024-01-01',
       endTime: '2024-01-31',
       linkType: 'miniprogram', // miniprogram, wechat, xiaohongshu
@@ -63,7 +63,7 @@ Page({
         id: 1,
         title: '养猫新手必看：如何选择合适的猫砂',
         description: '从材质、吸水性、除臭效果等方面教你选择...',
-        coverImage: '/images/article-1.jpg',
+        coverImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23ede9fe" width="200" height="200"/%3E%3Ctext fill="%238b5cf6" x="50%25" y="50%25" text-anchor="middle" font-size="40" dy=".3em"%3E📝%3C/text%3E%3C/svg%3E',
         platform: 'wechat', // wechat, xiaohongshu
         linkUrl: '',
         publishDate: '2024-01-15'
@@ -72,7 +72,7 @@ Page({
         id: 2,
         title: '社群用户真实反馈：使用喵汪兔3个月后',
         description: '来自500+铲屎官的真实使用体验分享...',
-        coverImage: '/images/article-2.jpg',
+        coverImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23ede9fe" width="200" height="200"/%3E%3Ctext fill="%238b5cf6" x="50%25" y="50%25" text-anchor="middle" font-size="40" dy=".3em"%3E💬%3C/text%3E%3C/svg%3E',
         platform: 'xiaohongshu',
         linkUrl: '',
         publishDate: '2024-01-10'
@@ -81,7 +81,7 @@ Page({
         id: 3,
         title: '猫砂更换频率指南',
         description: '科学换砂，让猫咪更健康...',
-        coverImage: '/images/article-3.jpg',
+        coverImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23ede9fe" width="200" height="200"/%3E%3Ctext fill="%238b5cf6" x="50%25" y="50%25" text-anchor="middle" font-size="40" dy=".3em"%3E📖%3C/text%3E%3C/svg%3E',
         platform: 'wechat',
         linkUrl: '',
         publishDate: '2024-01-05'
@@ -180,8 +180,7 @@ Page({
   onShareAppMessage() {
     return {
       title: '喵汪兔 - 我们懂的宠物清洁专家',
-      path: '/pages/brand/brand',
-      imageUrl: '/images/share-brand.jpg'
+      path: '/pages/brand/brand'
     }
   }
 })

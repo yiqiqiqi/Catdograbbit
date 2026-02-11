@@ -31,7 +31,7 @@
   <view class="function-section">
     <view class="function-card" bindtap="onOrderExchangeTap">
       <view class="function-icon">
-        <image src="/images/icon-order-exchange.png" mode="aspectFit" />
+        <text style="font-size: 60rpx;">📦</text>
       </view>
       <view class="function-content">
         <view class="function-title">订单兑换积分</view>
@@ -43,7 +43,7 @@
 
     <view class="function-card" bindtap="onPointsMallTap">
       <view class="function-icon">
-        <image src="/images/icon-points-mall.png" mode="aspectFit" />
+        <text style="font-size: 60rpx;">🏪</text>
       </view>
       <view class="function-content">
         <view class="function-title">积分商城</view>

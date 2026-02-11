@@ -15,11 +15,11 @@
       </view>
       <view class="platform-options">
         <view class="platform-option {{platform === 'taobao' ? 'active' : ''}}" bindtap="onSelectPlatform" data-platform="taobao">
-          <image class="platform-icon" src="/images/taobao-logo.png" mode="aspectFit" />
+          <text class="platform-icon" style="font-size: 60rpx;">🛒</text>
           <text class="platform-name">淘宝</text>
         </view>
         <view class="platform-option {{platform === 'xiaohongshu' ? 'active' : ''}}" bindtap="onSelectPlatform" data-platform="xiaohongshu">
-          <image class="platform-icon" src="/images/xiaohongshu-logo.png" mode="aspectFit" />
+          <text class="platform-icon" style="font-size: 60rpx;">📕</text>
           <text class="platform-name">小红书</text>
         </view>
       </view>

@@ -42,8 +42,7 @@
           <view class="article-desc">{{item.description}}</view>
           <view class="article-footer">
             <view class="article-source">
-              <image class="source-icon" src="{{item.platform === 'wechat' ? '/images/wechat-icon.png' : '/images/xiaohongshu-icon.png'}}" />
-              <text>{{item.platform === 'wechat' ? '公众号' : '小红书'}}</text>
+              <text>{{item.platform === 'wechat' ? '📱 公众号' : '📖 小红书'}}</text>
             </view>
             <view class="article-date">{{item.publishDate}}</view>
           </view>

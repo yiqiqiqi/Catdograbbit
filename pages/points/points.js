@@ -139,8 +139,7 @@ Page({
   onShareAppMessage() {
     return {
       title: '喵汪兔积分商城 - 订单兑换积分赢好礼',
-      path: '/pages/points/points',
-      imageUrl: '/images/share-points.jpg'
+      path: '/pages/points/points'
     }
   }
 })
