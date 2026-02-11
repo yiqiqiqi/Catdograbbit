@@ -1,0 +1,132 @@
+<view class="container">
+  <!-- 用户个人信息头部 -->
+  <view class="user-header">
+    <image
+      src="{{userInfo.avatar}}"
+      class="user-avatar"
+      mode="aspectFill"
+      onerror="onAvatarError"
+    />
+    <view class="user-info">
+      <text class="user-name">{{userInfo.nickname || '未设置昵称'}}</text>
+      <text class="user-phone">{{userInfo.phone || '未绑定手机'}}</text>
+    </view>
+    <view class="user-action">
+      <button class="edit-btn" bindtap="editProfile">编辑</button>
+    </view>
+  </view>
+
+  <!-- 用户等级和陪伴天数卡片 -->
+  <view class="level-companion-card">
+    <view class="stat-item">
+      <text class="stat-label">当前等级</text>
+      <view class="level-display">
+        <text class="level-badge">Lv.{{userLevel}}</text>
+        <text class="level-tip">{{levelName}}</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="stat-item">
+      <text class="stat-label">陪伴天数</text>
+      <view class="days-display">
+        <text class="days-number">{{companionDays}}</text>
+        <text class="days-unit">天</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="stat-item">
+      <text class="stat-label">可用积分</text>
+      <view class="points-display">
+        <text class="points-number">{{userPoints}}</text>
+        <text class="points-unit">分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的宠物列表 -->
+  <view class="pets-section">
+    <view class="section-header">
+      <text class="section-title">我的宠物</text>
+      <button class="add-btn" bindtap="addPet">+ 添加</button>
+    </view>
+
+    <view class="pets-list">
+      <block wx:if="{{petList.length > 0}}" wx:for="{{petList}}" wx:key="id">
+        <view class="pet-item" bindtap="viewPetDetail" data-pet-id="{{item.id}}">
+          <image
+            src="{{item.avatar}}"
+            class="pet-avatar"
+            mode="aspectFill"
+            onerror="onPetAvatarError"
+          />
+          <view class="pet-item-info">
+            <text class="pet-name">{{item.name}}</text>
+            <text class="pet-breed">{{item.breed || '暂无品种信息'}}</text>
+          </view>
+          <view class="pet-item-action">
+            <text class="arrow">></text>
+          </view>
+        </view>
+      </block>
+
+      <view wx:if="{{petList.length === 0}}" class="empty-pets">
+        <text class="empty-text">还没有添加宠物</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="function-section">
+    <view class="menu-item" bindtap="goToExchangeRecords">
+      <view class="menu-icon">🎁</view>
+      <text class="menu-text">兑换记录</text>
+      <text class="menu-arrow">></text>
+    </view>
+
+    <view class="menu-item" bindtap="goToPointsMall">
+      <view class="menu-icon">🛍️</view>
+      <text class="menu-text">积分商城</text>
+      <text class="menu-arrow">></text>
+    </view>
+
+    <view class="menu-item" bindtap="goToPointsCenter">
+      <view class="menu-icon">⭐</view>
+      <text class="menu-text">积分中心</text>
+      <text class="menu-arrow">></text>
+    </view>
+
+    <view class="menu-item" bindtap="goToSettings">
+      <view class="menu-icon">⚙️</view>
+      <text class="menu-text">设置</text>
+      <text class="menu-arrow">></text>
+    </view>
+  </view>
+
+  <!-- 用户统计信息 -->
+  <view class="statistics-section">
+    <text class="section-title">我的统计</text>
+    <view class="stats-grid">
+      <view class="stat-card">
+        <text class="stat-number">{{totalPhotos}}</text>
+        <text class="stat-name">上传照片</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-number">{{totalRecords}}</text>
+        <text class="stat-name">成长记录</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-number">{{totalExchanges}}</text>
+        <text class="stat-name">已兑换</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="footer-section">
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+</view>

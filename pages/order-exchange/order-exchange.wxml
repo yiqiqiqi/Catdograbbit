@@ -1,0 +1,129 @@
+<view class="exchange-container">
+  <!-- 头部说明 -->
+  <view class="header-card">
+    <view class="header-title">订单兑换积分</view>
+    <view class="header-desc">完成购买后，提交订单号即可兑换积分</view>
+  </view>
+
+  <!-- 表单区域 -->
+  <view class="form-section">
+    <!-- 平台选择 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>购买平台</text>
+      </view>
+      <view class="platform-options">
+        <view class="platform-option {{platform === 'taobao' ? 'active' : ''}}" bindtap="onSelectPlatform" data-platform="taobao">
+          <image class="platform-icon" src="/images/taobao-logo.png" mode="aspectFit" />
+          <text class="platform-name">淘宝</text>
+        </view>
+        <view class="platform-option {{platform === 'xiaohongshu' ? 'active' : ''}}" bindtap="onSelectPlatform" data-platform="xiaohongshu">
+          <image class="platform-icon" src="/images/xiaohongshu-logo.png" mode="aspectFit" />
+          <text class="platform-name">小红书</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 订单号输入 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>订单号</text>
+      </view>
+      <input
+        class="form-input"
+        type="text"
+        placeholder="请输入订单号"
+        value="{{orderNo}}"
+        bindinput="onOrderNoInput"
+        maxlength="50"
+      />
+      <view class="form-tip">订单号在{{platform === 'taobao' ? '淘宝' : '小红书'}}订单详情中可查看</view>
+    </view>
+
+    <!-- 购买包数选择 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>购买包数</text>
+      </view>
+      <view class="package-options">
+        <view class="package-option {{packages === 1 ? 'active' : ''}}" bindtap="onSelectPackages" data-packages="1">
+          <text class="package-num">1包</text>
+          <text class="package-spec">2.4kg</text>
+        </view>
+        <view class="package-option {{packages === 4 ? 'active' : ''}}" bindtap="onSelectPackages" data-packages="4">
+          <text class="package-num">4包</text>
+          <text class="package-spec">9.6kg</text>
+        </view>
+        <view class="package-option {{packages === 8 ? 'active' : ''}}" bindtap="onSelectPackages" data-packages="8">
+          <text class="package-num">8包</text>
+          <text class="package-spec">19.2kg</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 积分计算 -->
+    <view class="points-preview">
+      <view class="preview-title">本次可获得积分</view>
+      <view class="preview-detail">
+        <view class="preview-item">
+          <text class="preview-label">基础积分</text>
+          <text class="preview-value">+{{pointsInfo.basePoints}}</text>
+        </view>
+        <view class="preview-item" wx:if="{{isFirstOrder}}">
+          <text class="preview-label">首单奖励</text>
+          <text class="preview-value bonus">+{{pointsInfo.bonusPoints}}</text>
+        </view>
+      </view>
+      <view class="preview-total">
+        <text class="total-label">合计</text>
+        <text class="total-value">{{pointsInfo.totalPoints}}积分</text>
+      </view>
+    </view>
+
+    <!-- 首单标识 -->
+    <view class="first-order-tip" wx:if="{{isFirstOrder}}">
+      <text class="tip-icon">🎁</text>
+      <text class="tip-text">检测到这是您的首单，可额外获得100积分奖励！</text>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{submitting}}">
+      {{submitting ? '提交中...' : '提交兑换'}}
+    </button>
+  </view>
+
+  <!-- 兑换规则 -->
+  <view class="rules-section">
+    <view class="rules-title">兑换规则</view>
+    <view class="rule-item">
+      <text class="rule-dot">·</text>
+      <text class="rule-text">每个订单号仅可兑换一次</text>
+    </view>
+    <view class="rule-item">
+      <text class="rule-dot">·</text>
+      <text class="rule-text">1包(2.4kg)=100积分，首单额外+100积分</text>
+    </view>
+    <view class="rule-item">
+      <text class="rule-dot">·</text>
+      <text class="rule-text">提交后需等待审核，审核通过后积分自动到账</text>
+    </view>
+    <view class="rule-item">
+      <text class="rule-dot">·</text>
+      <text class="rule-text">单用户每月最多兑换20包(2000积分)</text>
+    </view>
+  </view>
+
+  <!-- 兑换记录入口 -->
+  <view class="history-link" bindtap="onHistoryTap">
+    <text>查看我的兑换记录</text>
+    <text class="arrow">></text>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-placeholder"></view>
+</view>

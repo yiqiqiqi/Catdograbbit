@@ -1,0 +1,317 @@
+/* pages/growth/growth.wxss */
+.container {
+  min-height: 100vh;
+  padding: 20rpx 20rpx 40rpx;
+  background-color: #f0efff;
+}
+
+/* 宠物选择器区域 */
+.pet-section {
+  margin-bottom: 20rpx;
+}
+
+/* 宠物档案卡片 */
+.pet-info-card {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 15rpx rgba(139, 92, 246, 0.15);
+  color: white;
+}
+
+.pet-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.pet-basic-info,
+.pet-date-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.info-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.info-label {
+  font-size: 22rpx;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: white;
+}
+
+/* 添加按钮区域 */
+.add-record-btn-section {
+  margin-bottom: 30rpx;
+}
+
+.add-record-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  color: white;
+  border: none;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 12rpx rgba(139, 92, 246, 0.25);
+}
+
+.add-record-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 16rpx rgba(139, 92, 246, 0.35);
+}
+
+.btn-icon {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.btn-tip {
+  font-size: 18rpx;
+  opacity: 0.85;
+}
+
+/* 成长记录列表 */
+.records-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #4c1d95;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.record-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.08);
+  border: 2rpx solid #f3e8ff;
+  transition: all 0.3s ease;
+}
+
+.record-card:active {
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(139, 92, 246, 0.15);
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  padding-bottom: 12rpx;
+  border-bottom: 1rpx solid #f3e8ff;
+}
+
+.record-date {
+  font-size: 22rpx;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.record-badge {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+}
+
+.badge-text {
+  font-size: 18rpx;
+  font-weight: 600;
+  color: white;
+}
+
+.record-title {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #2d1b4e;
+  margin-bottom: 8rpx;
+}
+
+.record-content {
+  display: block;
+  font-size: 24rpx;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+/* 图片展示 */
+.record-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140rpx, 1fr));
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.record-image {
+  width: 100%;
+  height: 140rpx;
+  border-radius: 12rpx;
+  object-fit: cover;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2rpx solid #f3e8ff;
+}
+
+.record-image:active {
+  transform: scale(0.95);
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.15);
+}
+
+.record-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12rpx;
+}
+
+.record-actions {
+  display: flex;
+  gap: 8rpx;
+}
+
+.action-btn {
+  background: #f3e8ff;
+  color: #8b5cf6;
+  border: 1rpx solid #e9d5ff;
+  border-radius: 10rpx;
+  padding: 8rpx 16rpx;
+  font-size: 20rpx;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.action-btn:active {
+  background: #e9d5ff;
+}
+
+.action-btn.delete {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.action-btn.delete:active {
+  background: #fecaca;
+}
+
+/* 加载更多 */
+.load-more-section {
+  display: flex;
+  justify-content: center;
+  padding: 20rpx;
+}
+
+.load-more-btn {
+  background: white;
+  color: #8b5cf6;
+  border: 2rpx solid #e9d5ff;
+  border-radius: 12rpx;
+  padding: 12rpx 32rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.load-more-btn:active {
+  background: #f3e8ff;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 20rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #4c1d95;
+  margin-bottom: 8rpx;
+}
+
+.empty-tip {
+  display: block;
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60rpx 20rpx;
+}
+
+.loading-text {
+  font-size: 24rpx;
+  color: #8b5cf6;
+  font-weight: 500;
+}
+
+/* 没有宠物状态 */
+.no-pet-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 20rpx;
+  text-align: center;
+}
+
+.no-pet-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.no-pet-text {
+  display: block;
+  font-size: 24rpx;
+  color: #4b5563;
+  font-weight: 500;
+}

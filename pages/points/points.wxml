@@ -1,0 +1,131 @@
+<view class="points-container">
+  <!-- 积分余额卡片 -->
+  <view class="points-card">
+    <view class="points-bg"></view>
+    <view class="points-content">
+      <view class="points-header">
+        <view class="user-level">
+          <text class="level-badge">{{userLevel.name}}</text>
+          <text class="level-text">Lv{{userLevel.level}}</text>
+        </view>
+      </view>
+      <view class="points-amount">
+        <text class="points-label">可用积分</text>
+        <text class="points-value">{{userPoints.available}}</text>
+      </view>
+      <view class="points-stats">
+        <view class="stat-item">
+          <text class="stat-label">累计获得</text>
+          <text class="stat-value">{{userPoints.total}}</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-label">本月获得</text>
+          <text class="stat-value">{{userPoints.monthly}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="function-section">
+    <view class="function-card" bindtap="onOrderExchangeTap">
+      <view class="function-icon">
+        <image src="/images/icon-order-exchange.png" mode="aspectFit" />
+      </view>
+      <view class="function-content">
+        <view class="function-title">订单兑换积分</view>
+        <view class="function-desc">淘宝/小红书订单号兑换</view>
+        <view class="function-rule">1包=100积分 · 首单+100</view>
+      </view>
+      <view class="function-arrow">></view>
+    </view>
+
+    <view class="function-card" bindtap="onPointsMallTap">
+      <view class="function-icon">
+        <image src="/images/icon-points-mall.png" mode="aspectFit" />
+      </view>
+      <view class="function-content">
+        <view class="function-title">积分商城</view>
+        <view class="function-desc">兑换猫砂、运费券等好礼</view>
+        <view class="function-rule">300积分起兑</view>
+      </view>
+      <view class="function-arrow">></view>
+    </view>
+  </view>
+
+  <!-- 积分规则说明 -->
+  <view class="rules-section">
+    <view class="section-title">
+      <text>积分规则</text>
+    </view>
+
+    <view class="rule-card">
+      <view class="rule-title">获取积分</view>
+      <view class="rule-item">
+        <text class="rule-icon">📦</text>
+        <text class="rule-text">购买1包(2.4kg)猫砂</text>
+        <text class="rule-points">+100积分</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-icon">🎁</text>
+        <text class="rule-text">首单额外奖励</text>
+        <text class="rule-points">+100积分</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-icon">📝</text>
+        <text class="rule-text">每日成长记录</text>
+        <text class="rule-points">+5积分</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-icon">🔥</text>
+        <text class="rule-text">连续记录7天</text>
+        <text class="rule-points">+20积分</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-icon">⭐</text>
+        <text class="rule-text">连续记录30天</text>
+        <text class="rule-points">+100积分</text>
+      </view>
+    </view>
+
+    <view class="rule-card">
+      <view class="rule-title">使用积分</view>
+      <view class="rule-item">
+        <text class="rule-icon">🎯</text>
+        <text class="rule-text">兑换1包猫砂</text>
+        <text class="rule-points">300积分</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-icon">🎯</text>
+        <text class="rule-text">兑换2包猫砂</text>
+        <text class="rule-points">550积分</text>
+      </view>
+      <view class="rule-item">
+        <text class="rule-icon">🎯</text>
+        <text class="rule-text">兑换4包猫砂</text>
+        <text class="rule-points">1000积分</text>
+      </view>
+    </view>
+
+    <view class="rule-card">
+      <view class="rule-title">等级权益</view>
+      <view class="level-item" wx:for="{{levelList}}" wx:key="level">
+        <view class="level-info">
+          <text class="level-name">{{item.name}}</text>
+          <text class="level-requirement">{{item.requirement}}</text>
+        </view>
+        <text class="level-privilege">{{item.privilege}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 积分记录入口 -->
+  <view class="history-link" bindtap="onHistoryTap">
+    <text>查看积分明细</text>
+    <text class="arrow">></text>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-placeholder"></view>
+</view>

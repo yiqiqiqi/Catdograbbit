@@ -1,0 +1,66 @@
+<view class="container">
+  <!-- 用户等级信息 -->
+  <view class="user-level-card">
+    <view class="level-info">
+      <text class="level-label">当前等级</text>
+      <view class="level-badge">
+        <text class="level-text">Lv.{{userLevel}}</text>
+      </view>
+    </view>
+    <view class="points-info">
+      <text class="points-label">可用积分</text>
+      <text class="points-number">{{userPoints}}</text>
+    </view>
+    <view class="access-info">
+      <text class="access-label">{{accessLevel ? '✓ 已开启兑换权限' : '✗ 等级过低，暂无兑换权限'}}</text>
+    </view>
+  </view>
+
+  <!-- 商品网格 -->
+  <view class="products-section">
+    <text class="section-title">可兑换商品</text>
+    <view class="products-grid">
+      <block wx:for="{{products}}" wx:key="id">
+        <view class="product-card" bindtap="selectProduct" data-product="{{item}}">
+          <view class="product-image">
+            <text class="package-icon">📦</text>
+            <text class="package-label">{{item.packageSize}}包</text>
+          </view>
+          <view class="product-info">
+            <text class="product-name">{{item.name}}</text>
+            <view class="product-points">
+              <text class="points-label">需要积分</text>
+              <text class="points-amount">{{item.pointsCost}}</text>
+            </view>
+          </view>
+          <view class="product-action">
+            <button
+              class="exchange-btn {{userPoints >= item.pointsCost && accessLevel ? 'active' : 'disabled'}}"
+              bindtap="handleExchange"
+              data-product="{{item}}"
+              disabled="{{userPoints < item.pointsCost || !accessLevel}}"
+            >
+              {{userPoints >= item.pointsCost ? '兑换' : '积分不足'}}
+            </button>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 兑换说明 -->
+  <view class="tips-section">
+    <text class="tips-title">兑换须知</text>
+    <view class="tips-content">
+      <text class="tips-item">• 需要达到Lv.2及以上等级才能兑换</text>
+      <text class="tips-item">• 兑换成功后将立即发送至您的账户</text>
+      <text class="tips-item">• 商品数量有限，先到先得</text>
+      <text class="tips-item">• 已兑换商品不可退货退款</text>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>

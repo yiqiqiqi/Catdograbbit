@@ -1,0 +1,57 @@
+<view class="brand-container">
+  <!-- 顶部品牌海报轮播 -->
+  <swiper class="brand-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <image class="swiper-image" src="{{item.imageUrl}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 品牌理念横向滑动栏 -->
+  <scroll-view class="brand-values-scroll" scroll-x="{{true}}" show-scrollbar="{{false}}">
+    <view class="brand-values">
+      <view class="value-item" wx:for="{{brandValues}}" wx:key="id">
+        <view class="value-icon">{{item.icon}}</view>
+        <view class="value-title">{{item.title}}</view>
+        <view class="value-desc">{{item.description}}</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 品牌资讯与活动 -->
+  <view class="content-section">
+    <view class="section-title">品牌动态</view>
+
+    <!-- 社群活动入口 -->
+    <view class="activity-card" wx:if="{{currentActivity}}" bindtap="onActivityTap">
+      <view class="activity-tag">社群活动</view>
+      <image class="activity-image" src="{{currentActivity.coverImage}}" mode="aspectFill" />
+      <view class="activity-info">
+        <view class="activity-title">{{currentActivity.title}}</view>
+        <view class="activity-time">{{currentActivity.startTime}} - {{currentActivity.endTime}}</view>
+      </view>
+      <view class="activity-arrow">></view>
+    </view>
+
+    <!-- 品牌文章列表 -->
+    <view class="section-title">精选内容</view>
+    <view class="article-list">
+      <view class="article-item" wx:for="{{articles}}" wx:key="id" bindtap="onArticleTap" data-item="{{item}}">
+        <image class="article-cover" src="{{item.coverImage}}" mode="aspectFill" />
+        <view class="article-content">
+          <view class="article-title">{{item.title}}</view>
+          <view class="article-desc">{{item.description}}</view>
+          <view class="article-footer">
+            <view class="article-source">
+              <image class="source-icon" src="{{item.platform === 'wechat' ? '/images/wechat-icon.png' : '/images/xiaohongshu-icon.png'}}" />
+              <text>{{item.platform === 'wechat' ? '公众号' : '小红书'}}</text>
+            </view>
+            <view class="article-date">{{item.publishDate}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-placeholder"></view>
+</view>
