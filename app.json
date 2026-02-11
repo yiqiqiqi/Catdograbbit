@@ -10,8 +10,6 @@
     "pages/pet-edit/pet-edit",
     "pages/updateProfile/updateProfile",
     "pages/daily-task/daily-task",
-    "components/pet-picker/pet-picker",
-    "components/photo-card/photo-card",
     "pages/shared-card/shared-card",
     "pages/pet-info-collect/pet-info-collect",
     "pages/publish-moment/publish-moment",
