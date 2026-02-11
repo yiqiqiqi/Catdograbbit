@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "成长记录",
+  "navigationBarBackgroundColor": "#8b5cf6",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f0efff",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "pet-picker": "/components/pet-picker/pet-picker"
+  }
+}

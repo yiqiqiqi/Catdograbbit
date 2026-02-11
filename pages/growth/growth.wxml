@@ -1,0 +1,111 @@
+<view class="container">
+  <!-- 宠物选择器 -->
+  <view class="pet-section">
+    <pet-picker
+      selectedPet="{{selectedPet}}"
+      petList="{{petList}}"
+      bind:petChange="onPetChange"
+      bind:editPet="onEditPet"
+    />
+  </view>
+
+  <!-- 宠物档案信息 -->
+  <view wx:if="{{selectedPet}}" class="pet-info-card">
+    <view class="pet-profile">
+      <view class="pet-basic-info">
+        <view class="info-item">
+          <text class="info-label">昵称</text>
+          <text class="info-value">{{selectedPet.name}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">品种</text>
+          <text class="info-value">{{selectedPet.breed || '未填写'}}</text>
+        </view>
+      </view>
+      <view class="pet-date-info">
+        <view class="info-item">
+          <text class="info-label">到家日期</text>
+          <text class="info-value">{{selectedPet.adoptionDate || '未填写'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">生日</text>
+          <text class="info-value">{{selectedPet.birthDate || '未填写'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加成长记录按钮 -->
+  <view class="add-record-btn-section">
+    <button class="add-record-btn" bindtap="addGrowthRecord" wx:if="{{selectedPet}}">
+      <text class="btn-icon">+</text>
+      <text>添加成长记录</text>
+      <text class="btn-tip">每日可获得5积分</text>
+    </button>
+  </view>
+
+  <!-- 成长记录列表 -->
+  <view wx:if="{{selectedPet && growthRecords.length > 0}}" class="records-section">
+    <text class="section-title">成长记录列表</text>
+    <view class="records-list">
+      <block wx:for="{{growthRecords}}" wx:key="id">
+        <view class="record-card">
+          <view class="record-header">
+            <text class="record-date">{{item.recordDate}}</text>
+            <view class="record-badge" wx:if="{{item.pointsEarned}}">
+              <text class="badge-text">+{{item.pointsEarned}}积分</text>
+            </view>
+          </view>
+          <text class="record-content">{{item.content}}</text>
+
+          <!-- 图片展示 -->
+          <view wx:if="{{item.images && item.images.length > 0}}" class="record-images">
+            <block wx:for="{{item.images}}" wx:key-item="image" wx:for-index="idx">
+              <image
+                src="{{image}}"
+                class="record-image"
+                mode="aspectFill"
+                bindtap="previewImage"
+                data-urls="{{item.images}}"
+                data-current="{{idx}}"
+              />
+            </block>
+          </view>
+
+          <view class="record-footer">
+            <text class="record-title">{{item.title}}</text>
+            <view class="record-actions">
+              <button class="action-btn" bindtap="editRecord" data-id="{{item.id}}">编辑</button>
+              <button class="action-btn delete" bindtap="deleteRecord" data-id="{{item.id}}">删除</button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 加载更多 -->
+    <view wx:if="{{hasMore}}" class="load-more-section">
+      <button class="load-more-btn" bindtap="loadMore" disabled="{{isLoadingMore}}">
+        {{isLoadingMore ? '加载中...' : '加载更多'}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{selectedPet && growthRecords.length === 0 && !loading}}" class="empty-state">
+    <text class="empty-icon">📝</text>
+    <text class="empty-text">还没有成长记录</text>
+    <text class="empty-tip">点击下方按钮添加第一条记录吧！</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-state">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 未选择宠物提示 -->
+  <view wx:if="{{!selectedPet && petList.length === 0 && !loading}}" class="no-pet-state">
+    <text class="no-pet-icon">🐾</text>
+    <text class="no-pet-text">还没有宠物，快去添加一只吧！</text>
+  </view>
+</view>

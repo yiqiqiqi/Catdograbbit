@@ -1,0 +1,229 @@
+/* pages/points-mall/points-mall.wxss */
+.container {
+  min-height: 100vh;
+  padding: 20rpx 20rpx 40rpx;
+  background-color: #f0efff;
+}
+
+/* 用户等级卡片 */
+.user-level-card {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 15rpx rgba(139, 92, 246, 0.15);
+  color: white;
+}
+
+.level-info,
+.points-info,
+.access-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.level-info:last-child,
+.access-info {
+  margin-bottom: 0;
+}
+
+.level-label,
+.points-label,
+.access-label {
+  font-size: 26rpx;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.level-badge {
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.4);
+}
+
+.level-text {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: white;
+}
+
+.points-number {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: white;
+}
+
+.access-label {
+  font-size: 24rpx;
+  color: #fef3c7;
+}
+
+/* 商品网格 */
+.products-section {
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #4c1d95;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20rpx;
+}
+
+.product-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(139, 92, 246, 0.08);
+  border: 2rpx solid #f3e8ff;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.product-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 12rpx rgba(139, 92, 246, 0.15);
+}
+
+.product-image {
+  width: 100rpx;
+  height: 100rpx;
+  background: linear-gradient(135deg, #f3e8ff 0%, #ede9fe 100%);
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.package-icon {
+  font-size: 40rpx;
+  margin-bottom: 4rpx;
+}
+
+.package-label {
+  font-size: 18rpx;
+  color: #8b5cf6;
+  font-weight: 600;
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.product-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #2d1b4e;
+}
+
+.product-points {
+  display: flex;
+  align-items: baseline;
+  gap: 8rpx;
+}
+
+.product-points .points-label {
+  font-size: 22rpx;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.product-points .points-amount {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #8b5cf6;
+}
+
+.product-action {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.exchange-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  color: white;
+  border: none;
+  border-radius: 12rpx;
+  padding: 12rpx 24rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100rpx;
+  text-align: center;
+}
+
+.exchange-btn.active {
+  box-shadow: 0 4rpx 12rpx rgba(139, 92, 246, 0.3);
+}
+
+.exchange-btn.active:active {
+  transform: scale(0.95);
+}
+
+.exchange-btn.disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* 兑换说明 */
+.tips-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 2rpx solid #f3e8ff;
+  margin-bottom: 20rpx;
+}
+
+.tips-title {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #4c1d95;
+  margin-bottom: 16rpx;
+  padding-bottom: 12rpx;
+  border-bottom: 2rpx solid #f3e8ff;
+}
+
+.tips-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.tips-item {
+  font-size: 22rpx;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* 加载状态 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40rpx;
+  font-size: 24rpx;
+  color: #8b5cf6;
+}

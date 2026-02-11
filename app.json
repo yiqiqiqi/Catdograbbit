@@ -1,6 +1,10 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/brand/brand",
+    "pages/points/points",
+    "pages/growth/growth",
+    "pages/my/my",
     "pages/index/index",
     "pages/profile/profile",
     "pages/pet-edit/pet-edit",
@@ -14,7 +18,9 @@
     "pages/redeem-code/redeem-code",
     "pages/lucky-draw/lucky-draw",
     "pages/my-prizes/my-prizes",
-    "pages/points-center/points-center"
+    "pages/points-center/points-center",
+    "pages/order-exchange/order-exchange",
+    "pages/points-mall/points-mall"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,14 +37,28 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "iconPath": "images/tab-home.png",
-        "selectedIconPath": "images/tab-home-active.png"
+        "pagePath": "pages/brand/brand",
+        "text": "品牌",
+        "iconPath": "images/tab-brand.png",
+        "selectedIconPath": "images/tab-brand-active.png"
       },
       {
-        "pagePath": "pages/profile/profile",
-        "iconPath": "images/tab-profile.png",
-        "selectedIconPath": "images/tab-profile-active.png"
+        "pagePath": "pages/points/points",
+        "text": "积分",
+        "iconPath": "images/tab-points.png",
+        "selectedIconPath": "images/tab-points-active.png"
+      },
+      {
+        "pagePath": "pages/growth/growth",
+        "text": "成长",
+        "iconPath": "images/tab-growth.png",
+        "selectedIconPath": "images/tab-growth-active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/tab-my.png",
+        "selectedIconPath": "images/tab-my-active.png"
       }
     ]
   },
