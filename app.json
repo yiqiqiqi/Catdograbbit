@@ -38,27 +38,19 @@
     "list": [
       {
         "pagePath": "pages/brand/brand",
-        "text": "品牌",
-        "iconPath": "images/tab-brand.png",
-        "selectedIconPath": "images/tab-brand-active.png"
+        "text": "🏷️ 品牌"
       },
       {
         "pagePath": "pages/points/points",
-        "text": "积分",
-        "iconPath": "images/tab-points.png",
-        "selectedIconPath": "images/tab-points-active.png"
+        "text": "⭐ 积分"
       },
       {
         "pagePath": "pages/growth/growth",
-        "text": "成长",
-        "iconPath": "images/tab-growth.png",
-        "selectedIconPath": "images/tab-growth-active.png"
+        "text": "🌱 成长"
       },
       {
         "pagePath": "pages/my/my",
-        "text": "我的",
-        "iconPath": "images/tab-my.png",
-        "selectedIconPath": "images/tab-my-active.png"
+        "text": "👤 我的"
       }
     ]
   },
