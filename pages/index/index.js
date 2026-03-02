@@ -5,9 +5,9 @@ const app = getApp();
 
 // 全局常量定义（抽离魔法值，提升可维护性）
 const CONSTANTS = {
-  DEFAULT_AVATAR: '/images/default-pet-avatar.jpg',
-  DEFAULT_PHOTO: '/images/default-photo.jpg',
-  DEFAULT_SHARE_IMG: '/images/share-default.jpg',
+  DEFAULT_AVATAR: '',
+  DEFAULT_PHOTO: '',
+  DEFAULT_SHARE_IMG: '',
   STORAGE_KEY: 'photoCards',
   PAGE_SIZE: 20,
 };

@@ -5,7 +5,7 @@
     <view class="pet-info-left">
       <image 
         class="pet-avatar" 
-        src="{{card.petAvatar || '/images/default-pet-avatar.jpg'}}" 
+        src="{{card.petAvatar || ''}}" 
         mode="aspectFill"
       ></image>
       <view class="pet-info">
@@ -55,7 +55,7 @@
           class="media-content single-video"
           src="{{card.images[0].imageUrl}}"
           controls
-          poster="{{card.images[0].coverUrl || '/images/default-video-cover.jpg'}}"
+          poster="{{card.images[0].coverUrl || ''}}"
           enable-play-gesture
           object-fit="contain"
         ></video>
@@ -94,7 +94,7 @@
             class="media-content grid-video"
             src="{{item.imageUrl}}"
             controls
-            poster="{{item.coverUrl || '/images/default-video-cover.jpg'}}"
+            poster="{{item.coverUrl || ''}}"
             enable-play-gesture
             object-fit="cover"
           ></video>

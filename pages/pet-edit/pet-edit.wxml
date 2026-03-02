@@ -1,7 +1,8 @@
 <view class="pet-edit">
   <view class="form-section">
     <view class="avatar-upload" bindtap="chooseAvatar">
-      <image class="avatar" src="{{avatarUrl || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" wx:if="{{avatarUrl}}" />
+      <view class="avatar avatar-placeholder" wx:else>🐾</view>
       <text class="avatar-text" wx:if="{{!avatarUrl}}">点击上传头像</text>
     </view>
 

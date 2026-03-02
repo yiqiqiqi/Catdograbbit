@@ -358,7 +358,7 @@ Page({
         name: '妞妞',
         species: 'cat',
         breed: '英短',
-        avatar: '/images/default-cat.png',
+        avatar: '',
         status: 'active'
       },
       {
@@ -366,7 +366,7 @@ Page({
         name: '旺财',
         species: 'dog',
         breed: '金毛',
-        avatar: '/images/default-dog.png',
+        avatar: '',
         status: 'active'
       }
     ];

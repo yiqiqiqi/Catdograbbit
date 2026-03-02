@@ -7,7 +7,8 @@
     <view class="section-card">
       <view class="section-title">头像</view>
       <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-        <image class="avatar" src="{{avatarUrl || '/images/default-avatar.png'}}"></image>
+        <image class="avatar" src="{{avatarUrl}}" wx:if="{{avatarUrl}}"></image>
+        <view class="avatar avatar-placeholder" wx:else>🐾</view>
         <view class="avatar-overlay">
           <text class="avatar-text">点击更换</text>
         </view>

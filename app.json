@@ -10,8 +10,6 @@
     "pages/pet-edit/pet-edit",
     "pages/updateProfile/updateProfile",
     "pages/daily-task/daily-task",
-    "components/pet-picker/pet-picker",
-    "components/photo-card/photo-card",
     "pages/shared-card/shared-card",
     "pages/pet-info-collect/pet-info-collect",
     "pages/publish-moment/publish-moment",
@@ -20,13 +18,16 @@
     "pages/my-prizes/my-prizes",
     "pages/points-center/points-center",
     "pages/order-exchange/order-exchange",
-    "pages/points-mall/points-mall"
+    "pages/points-mall/points-mall",
+    "pages/settings/settings",
+    "pages/growth-edit/growth-edit",
+    "pages/activity-detail/activity-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#efefff",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "backgroundColor": "#f5f5f5",
     "enablePullDownRefresh": true
   },
@@ -38,19 +39,19 @@
     "list": [
       {
         "pagePath": "pages/brand/brand",
-        "text": "🏷️ 品牌"
+        "text": "品牌"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
       },
       {
         "pagePath": "pages/points/points",
-        "text": "⭐ 积分"
-      },
-      {
-        "pagePath": "pages/growth/growth",
-        "text": "🌱 成长"
+        "text": "积分"
       },
       {
         "pagePath": "pages/my/my",
-        "text": "👤 我的"
+        "text": "我的"
       }
     ]
   },

@@ -212,6 +212,22 @@ const getRecordTypeIcon = (type) => {
   return icons[type] || '📝';
 };
 
+// 格式化日期（record-card 组件使用）
+const formatDate = (dateStr) => {
+  if (!dateStr) return '';
+  return DateUtils.formatToUTC8(dateStr, 'YYYY-MM-DD HH:mm');
+};
+
+// 获取记录类型名称（record-card 组件使用）
+const getRecordTypeName = (type) => {
+  const names = {
+    'diary': '日常记录',
+    'health': '健康记录',
+    'activity': '活动记录'
+  };
+  return names[type] || '其他记录';
+};
+
 module.exports = {
   formatTime,
   relativeTime,
@@ -222,5 +238,7 @@ module.exports = {
   getPetIcon,
   getRecordTypeIcon,
   generateCardId,
-  formatCreateTime
+  formatCreateTime,
+  formatDate,
+  getRecordTypeName
 };

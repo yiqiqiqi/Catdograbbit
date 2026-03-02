@@ -151,7 +151,7 @@ Page({
   // 查看兑换记录
   onHistoryTap() {
     wx.navigateTo({
-      url: '/pages/exchange-history/exchange-history'
+      url: '/pages/points-center/points-center'
     })
   }
 })

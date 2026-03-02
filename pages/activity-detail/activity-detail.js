@@ -330,7 +330,7 @@ Page({
     const mockActivity = {
       activityId: activityId,
       title: '宠物万圣节派对',
-      coverImage: '/images/activity-halloween.jpg',
+      coverImage: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="690" height="300"%3E%3Crect fill="%23f5f3ff" width="690" height="300"/%3E%3Ctext fill="%238b5cf6" x="50%25" y="50%25" text-anchor="middle" font-size="32" dy=".3em"%3E🎃 万圣节活动封面%3C/text%3E%3C/svg%3E',
       description: `带上您的爱宠一起参加万圣节主题派对！🎃
 
 活动内容：
@@ -356,11 +356,7 @@ Page({
       status: 'open',
       rating: 4.8,
       likeCount: 156,
-      images: [
-        '/images/activity-detail1.jpg',
-        '/images/activity-detail2.jpg',
-        '/images/activity-detail3.jpg'
-      ],
+      images: [],
       liked: false,
       joined: false
     };
@@ -369,19 +365,19 @@ Page({
       {
         userId: 'USER_001',
         nickname: '小明',
-        avatar: '/images/default-avatar.png',
+        avatar: '',
         pets: [{ name: '小白' }, { name: '小黑' }]
       },
       {
         userId: 'USER_002',
         nickname: '小红',
-        avatar: '/images/default-avatar.png',
+        avatar: '',
         pets: [{ name: '小花' }]
       },
       {
         userId: 'USER_003',
         nickname: '小李',
-        avatar: '/images/default-avatar.png',
+        avatar: '',
         pets: [{ name: '旺财' }, { name: '来福' }]
       }
     ];

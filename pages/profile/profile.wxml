@@ -10,7 +10,7 @@
     <view class="user-avatar-container">
       <image 
         class="user-avatar" 
-        src="{{userInfo.avatarUrl || '/images/avatar-default.png'}}" 
+        src="{{userInfo.avatarUrl}}"
         mode="aspectFill"
       ></image>
     </view>

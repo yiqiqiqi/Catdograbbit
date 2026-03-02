@@ -31,11 +31,11 @@ Page({
           });
         }, 1000);
       } else {
-        // 老用户：直接跳转到首页
-        wx.reLaunch({
+        // 老用户：直接跳转到首页（tabBar页面需用switchTab）
+        wx.switchTab({
           url: '/pages/index/index',
-          success: () => {
-            app.showNewUserGuide();
+          fail: () => {
+            wx.switchTab({ url: '/pages/brand/brand' });
           }
         });
       }
@@ -106,7 +106,12 @@ Page({
   },
 
   viewAgreement() {
-    wx.navigateTo({ url: '/pages/login/agreement/agreement' });
+    wx.showModal({
+      title: '用户协议与隐私政策',
+      content: '欢迎使用喵汪兔小程序。我们将依法保护您的个人信息安全，使用本小程序即表示您同意我们的用户协议和隐私政策。',
+      showCancel: false,
+      confirmText: '我知道了'
+    });
   },
 
   onUnload() {

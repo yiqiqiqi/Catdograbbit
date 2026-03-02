@@ -12,7 +12,7 @@ const PET_TYPE_NAMES = {
   'bird': '鸟儿'
 };
 
-const DEFAULT_AVATAR = '/images/default-avatar.png';
+const DEFAULT_AVATAR = '';
 
 Component({
   properties: {

@@ -22,7 +22,7 @@
             >
               <view class="pet-card-content">
                 <image 
-                  src="{{item.avatarUrl || '/images/default-avatar.png'}}" 
+                  src="{{item.avatarUrl || ''}}" 
                   class="pet-card-avatar {{(item.id === selectedPet.id || item.petId === selectedPet.petId) ? 'avatar-active' : ''}}" 
                   mode="aspectFill"
                 ></image>
@@ -50,7 +50,7 @@
   <view class="management-modal" wx:if="{{isManagementModalShow}}">
     <view class="modal-header">
       <text class="modal-title">管理宠物</text>
-      <image src="/images/icon/close.png" class="close-icon" mode="aspectFill" bindtap="closeManagementModal"></image>
+      <text class="close-icon" bindtap="closeManagementModal">✕</text>
     </view>
     <view class="management-list">
    <!-- 在管理列表项中添加选中标识 -->
@@ -61,7 +61,7 @@
       >
         <view class="pet-info-section">
           <image 
-            src="{{item.avatarUrl || '/images/default-avatar.png'}}" 
+            src="{{item.avatarUrl || ''}}" 
             class="management-pet-avatar" 
             mode="aspectFill"
           ></image>

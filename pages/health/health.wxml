@@ -93,7 +93,7 @@
   <view class="pet-modal" wx:if="{{isPetModalShow}}">
     <view class="modal-header">
       <text class="modal-title">选择宠物</text>
-      <image src="/images/icon/close.png" class="close-icon" mode="aspectFit" bindtap="closePetModal"></image>
+      <text class="close-icon" bindtap="closePetModal">✕</text>
     </view>
     <view class="pet-list">
       <view 
@@ -103,18 +103,14 @@
         bindtap="changePet"
         data-petid="{{item.petId}}"
       >
-        <image src="{{item.avatar || '/images/default-avatar.png'}}" class="pet-item-avatar" mode="aspectFit"></image>
+        <image src="{{item.avatar}}" class="pet-item-avatar" mode="aspectFit" wx:if="{{item.avatar}}"></image>
+        <view class="pet-item-avatar pet-avatar-placeholder" wx:else>🐾</view>
         <view class="pet-item-info">
           <text class="pet-item-name">{{item.name}}</text>
           <text class="pet-item-type">{{item.typeName}} · {{item.breed || '未知品种'}}</text>
         </view>
         <view class="pet-item-actions">
-          <image 
-            src="/images/icon/selected.png" 
-            class="selected-icon" 
-            mode="aspectFit"
-            wx:if="{{item.petId === selectedPet.petId}}"
-          ></image>
+          <text class="selected-icon" wx:if="{{item.petId === selectedPet.petId}}">✓</text>
           <!-- 添加编辑按钮 -->
           <button 
             class="edit-text-btn" 

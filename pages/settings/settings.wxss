@@ -57,7 +57,11 @@ page {
   width: 40rpx;
   height: 40rpx;
   object-fit: contain;
-  margin-right: 20rpx; /* 图标与文字间距，提升可读性 */
+  margin-right: 20rpx;
+}
+.settings-icon-emoji {
+  font-size: 36rpx;
+  margin-right: 20rpx;
 }
 .settings-text {
   font-size: 28rpx;

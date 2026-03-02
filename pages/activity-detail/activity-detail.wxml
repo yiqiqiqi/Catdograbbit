@@ -2,7 +2,7 @@
 <view class="container">
   <!-- 活动封面 -->
   <view class="activity-cover">
-    <image class="cover-image" src="{{activity.coverImage || '/images/default-activity.jpg'}}" mode="aspectFill" />
+    <image class="cover-image" src="{{activity.coverImage}}" mode="aspectFill" wx:if="{{activity.coverImage}}" />
     <view class="cover-overlay">
       <view class="activity-status {{activity.status}}">
         {{getStatusText(activity.status)}}
@@ -66,7 +66,7 @@
     <view class="participation-list">
       <block wx:for="{{joinedPets}}" wx:key="petId">
         <view class="participation-item">
-          <image class="pet-avatar" src="{{item.avatar || '/images/default-pet.png'}}" />
+          <image class="pet-avatar" src="{{item.avatar || ''}}" />
           <text class="pet-name">{{item.name}}</text>
           <text class="participation-status">已报名</text>
         </view>
@@ -82,7 +82,7 @@
     <view class="participants-list">
       <block wx:for="{{participants}}" wx:key="userId">
         <view class="participant-item">
-          <image class="user-avatar" src="{{item.avatar || '/images/default-avatar.png'}}" />
+          <image class="user-avatar" src="{{item.avatar || ''}}" />
           <text class="user-name">{{item.nickname}}</text>
           <text class="pets-count">{{item.pets.length}}只宠物</text>
         </view>
@@ -121,7 +121,7 @@
               data-pet-id="{{item.petId}}"
               bindtap="onTogglePet"
             >
-              <image class="pet-avatar" src="{{item.avatar || '/images/default-pet.png'}}" />
+              <image class="pet-avatar" src="{{item.avatar || ''}}" />
               <text class="pet-name">{{item.name}}</text>
               <text class="check-icon">{{selectedPets.includes(item.petId) ? '✓' : ''}}</text>
             </view>

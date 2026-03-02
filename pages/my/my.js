@@ -107,7 +107,7 @@ Page({
   // 编辑个人资料
   editProfile() {
     wx.navigateTo({
-      url: '/pages/user-profile/user-profile'
+      url: '/pages/updateProfile/updateProfile'
     });
   },
 
@@ -197,7 +197,7 @@ Page({
 
       // 跳转到登录页
       setTimeout(() => {
-        wx.redirectTo({
+        wx.reLaunch({
           url: '/pages/login/login'
         });
       }, 1500);

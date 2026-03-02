@@ -23,7 +23,8 @@
             data-pet-id="{{item.petId}}"
             bindtap="onSelectPet"
           >
-            <image class="pet-avatar" src="{{item.avatar || '/images/default-pet.png'}}" />
+            <image class="pet-avatar" src="{{item.avatar}}" wx:if="{{item.avatar}}" />
+            <view class="pet-avatar pet-avatar-placeholder" wx:else>🐾</view>
             <text class="pet-name">{{item.name}}</text>
           </view>
         </block>

@@ -39,12 +39,10 @@ App({
       this.globalData.token = token;
       this.globalData.userInfo = userInfo;
 
-      // 优化：仅当前页面不是首页时，才跳转首页
-      const pages = getCurrentPages();
-      const currentPagePath = pages.length > 0 ? pages[0].route : '';
-      if (currentPagePath !== 'pages/index/index') {
-        wx.reLaunch({
-          url: '/pages/index/index',
+      // 已登录：延迟跳转到首页（onLaunch时页面栈未就绪）
+      setTimeout(() => {
+        wx.switchTab({
+          url: '/pages/brand/brand',
           success: () => {
             console.log('已登录，自动跳转首页');
           },
@@ -52,9 +50,7 @@ App({
             console.log('跳转首页失败:', err);
           }
         });
-      } else {
-        console.log('已在首页，无需跳转');
-      }
+      }, 100);
     } else {
       // 未登录：保持在登录页（app.json第一个页面是login）
       this.globalData.token = null;
@@ -478,7 +474,7 @@ App({
     return {
       userId: userInfo.userId || '',
       nickName: userInfo.nickName || '未设置昵称',
-      avatarUrl: userInfo.avatarUrl || '/images/avatar-default.png',
+      avatarUrl: userInfo.avatarUrl || '',
       points: userInfo.points || 0,
       lotteryTickets: userInfo.lotteryTickets || 0,
       level: userInfo.level || 1,

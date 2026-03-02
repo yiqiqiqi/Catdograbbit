@@ -62,7 +62,7 @@ Page({
     if (sharedCardData) {
       const imageUrl = sharedCardData.imageList && sharedCardData.imageList.length > 0 
         ? sharedCardData.imageList[0] 
-        : '/images/share-default.jpg';
+        : '';
       
       return {
         title: `来看看${sharedCardData.petName}的萌照！`,
@@ -73,7 +73,7 @@ Page({
     return {
       title: '来看看这个可爱的宠物照片！',
       path: '/pages/index/index',
-      imageUrl: '/images/share-default.jpg'
+      imageUrl: ''
     };
   },
 
@@ -82,7 +82,7 @@ Page({
     if (sharedCardData) {
       const imageUrl = sharedCardData.imageList && sharedCardData.imageList.length > 0 
         ? sharedCardData.imageList[0] 
-        : '/images/share-default.jpg';
+        : '';
       
       return {
         title: `来看看${sharedCardData.petName}的萌照！`,
@@ -91,7 +91,7 @@ Page({
     }
     return {
       title: '来看看这个可爱的宠物照片！',
-      imageUrl: '/images/share-default.jpg'
+      imageUrl: ''
     };
   },
 
@@ -213,7 +213,7 @@ Page({
       
       // 构建图片列表
       const imageList = responseData.photos.map(photo => {
-        const imageUrl = photo.imageUrl ? `${app.globalData.domain}${photo.imageUrl}` : '/images/default-photo.jpg';
+        const imageUrl = photo.imageUrl ? `${app.globalData.domain}${photo.imageUrl}` : '';
         const mediaType=photo.mediaType;
         const isLivePhoto=photo.isLivePhoto;
         return {imageUrl,mediaType,isLivePhoto}
@@ -239,7 +239,7 @@ Page({
       if (responseData.imageUrl) {
         imageList = [`${app.globalData.domain}${responseData.imageUrl}`];
       } else {
-        imageList = ['/images/default-photo.jpg'];
+        imageList = [''];
       }
       
       return {
@@ -248,7 +248,7 @@ Page({
         cardId: responseData.cardId || 'unknown',
         petName: responseData.petName || '宠物',
         description: responseData.description || `记录了宠物的萌照`,
-        createdAt: formatTime(firstPhoto.createdAt),
+        createdAt: formatTime(responseData.createdAt),
         imageList: imageList
       };
     }
@@ -267,7 +267,7 @@ Page({
       petName: '宠物',
       description: '数据加载异常',
       createdAt: new Date().toISOString(),
-      imageList: ['/images/default-photo.jpg']
+      imageList: ['']
     };
   },
 

@@ -1,78 +1,45 @@
+const app = getApp();
+
 Page({
-  /**
-   * 点击“个人信息”：跳转到个人信息编辑页
-   * （需提前创建个人信息页：pages/profile/profile）
-   */
   goToProfile() {
     wx.navigateTo({
-      url: '/pages/profile/profile', // 个人信息页路径，根据实际项目调整
-      fail: () => {
-        wx.showToast({ title: '页面不存在', icon: 'none' });
-      }
+      url: '/pages/updateProfile/updateProfile'
     });
   },
 
-  /**
-   * 点击“用户协议”：跳转到协议页面
-   * （复用之前创建的协议页面：pages/agreement/agreement）
-   */
   viewUserAgreement() {
-    wx.navigateTo({
-      url: '/pages/agreement/agreement?type=user', // 传type区分协议类型（可选）
+    wx.showModal({
+      title: '用户协议',
+      content: '欢迎使用喵汪兔小程序。我们致力于为宠物主人提供优质的服务体验。使用本小程序即表示您同意我们的用户协议条款。',
+      showCancel: false,
+      confirmText: '我知道了'
     });
   },
 
-  /**
-   * 点击“隐私政策”：跳转到隐私页面
-   * （复用之前创建的隐私页面：pages/privacy/privacy）
-   */
   viewPrivacyPolicy() {
-    wx.navigateTo({
-      url: '/pages/privacy/privacy',
+    wx.showModal({
+      title: '隐私政策',
+      content: '喵汪兔小程序尊重并保护您的个人隐私。我们仅收集提供服务所必需的信息，不会将您的信息出售给第三方。',
+      showCancel: false,
+      confirmText: '我知道了'
     });
   },
 
-  /**
-   * 点击“第三方SDK说明”：跳转到SDK说明页
-   * （需创建SDK说明页：pages/sdk-info/sdk-info）
-   */
-  viewSDKInfo() {
-    wx.navigateTo({
-      url: '/pages/sdk-info/sdk-info',
-      fail: () => {
-        wx.showToast({ title: 'SDK说明页未创建', icon: 'none' });
-      }
-    });
-  },
-
-  /**
-   * 点击“退出登录”：清除缓存+确认弹窗+跳转首页/登录页
-   */
   logout() {
     wx.showModal({
       title: '确认退出',
       content: '退出后需重新登录才能使用功能',
       cancelText: '取消',
       confirmText: '退出',
-      confirmColor: '#e63946', // 确认按钮红色，突出操作
+      confirmColor: '#e63946',
       success: (res) => {
         if (res.confirm) {
-          // 1. 清除本地登录缓存（和主页面登录缓存key保持一致）
-          wx.removeStorageSync('userLoginInfo');
-          // 2. 跳转首页（或登录页，根据项目需求调整）
-          wx.reLaunch({
-            url: '/pages/index/index', // 首页路径，根据实际项目调整
-          });
-          // 3. 提示退出成功
-          wx.showToast({ title: '已退出登录' });
+          app.logout(true);
         }
       }
     });
   },
 
-  /**
-   * 点击“注销账号”：二次确认（高危操作）+ 清除缓存+跳转登录页
-   */
   deleteAccount() {
     wx.showModal({
       title: '警告',
@@ -82,7 +49,6 @@ Page({
       confirmColor: '#e63946',
       success: (res) => {
         if (res.confirm) {
-          // 二次确认：进一步降低误操作风险
           wx.showModal({
             title: '最后确认',
             content: '确定要注销账号吗？此操作不可撤销！',
@@ -91,15 +57,12 @@ Page({
             confirmColor: '#e63946',
             success: (secondRes) => {
               if (secondRes.confirm) {
-                // 1. 调用后端注销接口（实际项目需补充）
-                // wx.request({ url: 'xxx/deleteAccount', ... })
-                // 2. 清除所有本地缓存
                 wx.clearStorageSync();
-                // 3. 跳转登录页（强制重新注册/登录）
+                app.globalData.token = null;
+                app.globalData.userInfo = null;
                 wx.reLaunch({
-                  url: '/pages/login/login', // 登录页路径，根据实际项目调整
+                  url: '/pages/login/login'
                 });
-                // 4. 提示注销成功
                 wx.showToast({ title: '账号已注销', icon: 'none' });
               }
             }

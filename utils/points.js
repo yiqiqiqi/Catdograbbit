@@ -181,11 +181,17 @@ const calculateExchangePoints = (packages) => {
   return EXCHANGE_RULES[packages] || 0;
 };
 
+// getLevelByPoints: 根据积分获取等级配置（points.js 页面使用）
+const getLevelByPoints = (points) => {
+  return LEVEL_CONFIG.find(c => points >= c.min && points < c.max) || LEVEL_CONFIG[0];
+};
+
 module.exports = {
   LEVEL_CONFIG,
   calculateLevel,
   getLevelInfo,
   getLevelByLevel,
+  getLevelByPoints,
   formatPoints,
   hasEnoughPoints,
   getMaxExchangePackages,

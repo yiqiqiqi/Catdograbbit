@@ -1,0 +1,46 @@
+<view class="container">
+  <view class="form-section">
+    <view class="form-item">
+      <text class="form-label">记录类型</text>
+      <picker mode="selector" range="{{typeOptions}}" range-key="label" value="{{typeIndex}}" bindchange="onTypeChange">
+        <view class="picker-value">{{typeOptions[typeIndex].label || '请选择'}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">记录日期</text>
+      <picker mode="date" value="{{recordDate}}" bindchange="onDateChange">
+        <view class="picker-value">{{recordDate || '请选择日期'}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">记录内容</text>
+      <textarea
+        class="form-textarea"
+        placeholder="记录宠物的成长点滴..."
+        value="{{content}}"
+        bindinput="onContentInput"
+        maxlength="500"
+      />
+      <text class="char-count">{{content.length}}/500</text>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">添加图片</text>
+      <view class="image-list">
+        <block wx:for="{{images}}" wx:key="index">
+          <view class="image-item">
+            <image src="{{item}}" mode="aspectFill" class="preview-image" bindtap="previewImage" data-index="{{index}}" />
+            <view class="remove-btn" bindtap="removeImage" data-index="{{index}}">x</view>
+          </view>
+        </block>
+        <view class="image-item add-image" bindtap="chooseImage" wx:if="{{images.length < 9}}">
+          <text class="add-icon">+</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button class="save-btn" bindtap="saveRecord">{{isEdit ? '保存修改' : '添加记录'}}</button>
+</view>
